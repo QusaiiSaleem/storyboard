@@ -1,0 +1,12 @@
+CLAUDE.local.md
+.claude/settings.local.json
+.claude/.claude.local.md
+.DS_Store
+node_modules/
+__pycache__/
+*.pyc
+output/
+projects/*/branding/
+tmp_*.sh
+tmp_*.py
+tmp_*.js

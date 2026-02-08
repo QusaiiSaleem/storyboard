@@ -41,9 +41,9 @@ For each requested storyboard type (one at a time):
 3. Wait for approval before proceeding to next
 
 Suggested order:
-1. Learning Objectives → 2. Learning Map → 3. Pre-Test → 4. Interactive Lecture
-→ 5. PDF Lecture → 6. Video → 7. Activities → 8. Discussion → 9. Assignment
-→ 10. Post-Test → 11. Summary
+1. Learning Objectives -> 2. Learning Map -> 3. Pre-Test -> 4. Interactive Lecture
+-> 5. PDF Lecture -> 6. Video -> 7. Activities -> 8. Discussion -> 9. Assignment
+-> 10. Post-Test -> 11. Summary
 
 ### Step 4: Completion
 Confirm all storyboards are generated and saved.
@@ -65,9 +65,17 @@ Update unit status in project config.
 | Assignment | storyboard-assignment |
 | Summary | storyboard-summary |
 
+## Template Engine
+
+All document generation uses the template engine at `engine/`:
+- **DOCX documents**: Agents use builders from `engine/docx_engine.py` (TestBuilder, ActivityBuilder, VideoBuilder, ObjectivesBuilder, SummaryBuilder, InfographicBuilder, DiscussionBuilder, AssignmentBuilder)
+- **PPTX documents**: Agents use `LectureBuilder` from `engine/pptx_engine.py`
+
+Agents produce CONTENT and call engine builders via Bash. The engine handles all formatting, RTL, fonts, colors, and borders automatically. Agents should NOT manipulate template files directly.
+
 ## IMPORTANT RULES:
-- You are a COORDINATOR — never generate storyboard content directly
+- You are a COORDINATOR -- never generate storyboard content directly
 - Always delegate to specialized agents
 - Always wait for user review between each storyboard type
-- Use `/docx` skill for docx files, `/pptx` skill for pptx files
 - Read project config from `projects/[project-code]/config.json`
+- All output goes to `output/[project-code]/U[XX]/`

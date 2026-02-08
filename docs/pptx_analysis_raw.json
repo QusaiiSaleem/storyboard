@@ -1,0 +1,3581 @@
+{
+  "filename": "قالب المحاضرة التفاعلية- عربي.pptx",
+  "slide_width_emu": 12192000,
+  "slide_height_emu": 6858000,
+  "slide_width_cm": 33.87,
+  "slide_height_cm": 19.05,
+  "slide_count": 8,
+  "slides": [
+    {
+      "slide_index": 0,
+      "slide_number": 1,
+      "layout_name": "Title Slide",
+      "shapes": [
+        {
+          "shape_id": 86,
+          "name": "Google Shape;86;p1",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 6096000,
+          "top_emu": 3198167,
+          "width_emu": 5181600,
+          "height_emu": 461665,
+          "left_cm": 16.93,
+          "top_cm": 8.88,
+          "width_cm": 14.39,
+          "height_cm": 1.28,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "علوم الحاسب ونظم المعلومات",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "علوم الحاسب ونظم المعلومات",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "علوم الحاسب ونظم المعلومات",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 24.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "2D588C",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 87,
+          "name": "Google Shape;87;p1",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 6096000,
+          "top_emu": 4257368,
+          "width_emu": 5181600,
+          "height_emu": 1077218,
+          "left_cm": 16.93,
+          "top_cm": 11.83,
+          "width_cm": 14.39,
+          "height_cm": 2.99,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "المحاضرة الأولى:\n\n مقدمة في علوم الحاسوب",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "المحاضرة الأولى:",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "المحاضرة الأولى",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 24.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "2D588C",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  },
+                  {
+                    "text": ":",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "2D588C",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              },
+              {
+                "text": "",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "",
+                    "font_name": null,
+                    "font_size_pt": null,
+                    "bold": null,
+                    "italic": null,
+                    "underline": null,
+                    "lang": null,
+                    "altLang": null,
+                    "dirty": null
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              },
+              {
+                "text": " مقدمة في علوم الحاسوب",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": " ",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "2D588C",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  },
+                  {
+                    "text": "مقدمة في علوم الحاسوب",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "262626",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 88,
+          "name": "Google Shape;88;p1",
+          "shape_type": "AUTO_SHAPE (1)",
+          "left_emu": 7398084,
+          "top_emu": 5599525,
+          "width_emu": 2773680,
+          "height_emu": 665193,
+          "left_cm": 20.55,
+          "top_cm": 15.55,
+          "width_cm": 7.7,
+          "height_cm": 1.85,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "ابدأ المحاضرة",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "ابدأ المحاضرة",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "ابدأ المحاضرة",
+                    "font_name": "Tajawal",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_theme": "LIGHT_1 (2)",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal",
+                    "latin_font": "Tajawal",
+                    "ea_font": "Tajawal"
+                  }
+                ],
+                "rtl": "0",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "NONE (0)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "SOLID (1)",
+            "type_name": "SOLID",
+            "fore_color": {
+              "theme_color": "ACCENT_1 (5)",
+              "brightness": 0
+            }
+          },
+          "line": {
+            "width_pt": 1.5,
+            "color": "082836"
+          }
+        },
+        {
+          "shape_id": 89,
+          "name": "Google Shape;89;p1",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 9476078,
+          "top_emu": 5599525,
+          "width_emu": 619211,
+          "height_emu": 657317,
+          "left_cm": 26.32,
+          "top_cm": 15.55,
+          "width_cm": 1.72,
+          "height_cm": 1.83,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 90,
+          "name": "Google Shape;90;p1",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 7570916,
+          "top_emu": 5888428,
+          "width_emu": 724001,
+          "height_emu": 752580,
+          "left_cm": 21.03,
+          "top_cm": 16.36,
+          "width_cm": 2.01,
+          "height_cm": 2.09,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        }
+      ],
+      "notes": null,
+      "background": {
+        "type": "BACKGROUND (5)",
+        "type_name": "BACKGROUND"
+      }
+    },
+    {
+      "slide_index": 1,
+      "slide_number": 2,
+      "layout_name": "Title and Content",
+      "shapes": [
+        {
+          "shape_id": 95,
+          "name": "Google Shape;95;p2",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 612770,
+          "top_emu": 3957598,
+          "width_emu": 11029824,
+          "height_emu": 600002,
+          "left_cm": 1.7,
+          "top_cm": 10.99,
+          "width_cm": 30.64,
+          "height_cm": 1.67,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 96,
+          "name": "Google Shape;96;p2",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 10922693,
+          "top_emu": 3957598,
+          "width_emu": 703228,
+          "height_emu": 600002,
+          "left_cm": 30.34,
+          "top_cm": 10.99,
+          "width_cm": 1.95,
+          "height_cm": 1.67,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 97,
+          "name": "Google Shape;97;p2",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 612770,
+          "top_emu": 3151353,
+          "width_emu": 11029824,
+          "height_emu": 600002,
+          "left_cm": 1.7,
+          "top_cm": 8.75,
+          "width_cm": 30.64,
+          "height_cm": 1.67,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 98,
+          "name": "Google Shape;98;p2",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 10922693,
+          "top_emu": 3151353,
+          "width_emu": 703228,
+          "height_emu": 600002,
+          "left_cm": 30.34,
+          "top_cm": 8.75,
+          "width_cm": 1.95,
+          "height_cm": 1.67,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 99,
+          "name": "Google Shape;99;p2",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 4790969,
+          "top_emu": 898751,
+          "width_emu": 2610062,
+          "height_emu": 695099,
+          "left_cm": 13.31,
+          "top_cm": 2.5,
+          "width_cm": 7.25,
+          "height_cm": 1.93,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 100,
+          "name": "Google Shape;100;p2",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 4947367,
+          "top_emu": 1035917,
+          "width_emu": 2297266,
+          "height_emu": 369332,
+          "left_cm": 13.74,
+          "top_cm": 2.88,
+          "width_cm": 6.38,
+          "height_cm": 1.03,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "الأهداف التعليمية",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "الأهداف التعليمية",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "الأهداف التعليمية",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 18.0,
+                    "bold": null,
+                    "italic": null,
+                    "underline": null,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 101,
+          "name": "Google Shape;101;p2",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 612770,
+          "top_emu": 2315612,
+          "width_emu": 11029824,
+          "height_emu": 600002,
+          "left_cm": 1.7,
+          "top_cm": 6.43,
+          "width_cm": 30.64,
+          "height_cm": 1.67,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 102,
+          "name": "Google Shape;102;p2",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 10922693,
+          "top_emu": 2315612,
+          "width_emu": 703228,
+          "height_emu": 600002,
+          "left_cm": 30.34,
+          "top_cm": 6.43,
+          "width_cm": 1.95,
+          "height_cm": 1.67,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 103,
+          "name": "Google Shape;103;p2",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 1462617,
+          "top_emu": 2430947,
+          "width_emu": 9443403,
+          "height_emu": 338554,
+          "left_cm": 4.06,
+          "top_cm": 6.75,
+          "width_cm": 26.23,
+          "height_cm": 0.94,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "نموذج نص عربي تجريبي يُستخدم في معاينة التصاميم قبل إدخال المحتوى الحقيقي.",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "نموذج نص عربي تجريبي يُستخدم في معاينة التصاميم قبل إدخال المحتوى الحقيقي.",
+                "alignment": "RIGHT (3)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "نموذج نص عربي تجريبي يُستخدم في معاينة التصاميم قبل إدخال المحتوى الحقيقي.",
+                    "font_name": "Tajawal",
+                    "font_size_pt": 16.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal",
+                    "latin_font": "Tajawal",
+                    "ea_font": "Tajawal"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "r",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 104,
+          "name": "Google Shape;104;p2",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 1462617,
+          "top_emu": 3281882,
+          "width_emu": 9443403,
+          "height_emu": 338554,
+          "left_cm": 4.06,
+          "top_cm": 9.12,
+          "width_cm": 26.23,
+          "height_cm": 0.94,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "نموذج نص عربي تجريبي يُستخدم في معاينة التصاميم قبل إدخال المحتوى الحقيقي.",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "نموذج نص عربي تجريبي يُستخدم في معاينة التصاميم قبل إدخال المحتوى الحقيقي.",
+                "alignment": "RIGHT (3)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "نموذج نص عربي تجريبي يُستخدم في معاينة التصاميم قبل إدخال المحتوى الحقيقي.",
+                    "font_name": "Tajawal",
+                    "font_size_pt": 16.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal",
+                    "latin_font": "Tajawal",
+                    "ea_font": "Tajawal"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "r",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 105,
+          "name": "Google Shape;105;p2",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 1462617,
+          "top_emu": 4085727,
+          "width_emu": 9443403,
+          "height_emu": 338554,
+          "left_cm": 4.06,
+          "top_cm": 11.35,
+          "width_cm": 26.23,
+          "height_cm": 0.94,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "نموذج نص عربي تجريبي يُستخدم في معاينة التصاميم قبل إدخال المحتوى الحقيقي.",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "نموذج نص عربي تجريبي يُستخدم في معاينة التصاميم قبل إدخال المحتوى الحقيقي.",
+                "alignment": "RIGHT (3)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "نموذج نص عربي تجريبي يُستخدم في معاينة التصاميم قبل إدخال المحتوى الحقيقي.",
+                    "font_name": "Tajawal",
+                    "font_size_pt": 16.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal",
+                    "latin_font": "Tajawal",
+                    "ea_font": "Tajawal"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "r",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 106,
+          "name": "Google Shape;106;p2",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 6280654,
+          "top_emu": 1830945,
+          "width_emu": 5361940,
+          "height_emu": 369332,
+          "left_cm": 17.45,
+          "top_cm": 5.09,
+          "width_cm": 14.89,
+          "height_cm": 1.03,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "يتوقع منك في نهاية هذه المحاضرة أن تكون قادرًا على:",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "يتوقع منك في نهاية هذه المحاضرة أن تكون قادرًا على:",
+                "alignment": "RIGHT (3)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "يتوقع منك في نهاية هذه المحاضرة أن تكون قادرًا على:",
+                    "font_name": "Tajawal Medium",
+                    "font_size_pt": 18.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal Medium",
+                    "latin_font": "Tajawal Medium",
+                    "ea_font": "Tajawal Medium"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "r",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 107,
+          "name": "Google Shape;107;p2",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 920559,
+          "top_emu": 6384932,
+          "width_emu": 327098,
+          "height_emu": 400110,
+          "left_cm": 2.56,
+          "top_cm": 17.74,
+          "width_cm": 0.91,
+          "height_cm": 1.11,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "2",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "2",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "2",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "2D588C",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "0",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 108,
+          "name": "Google Shape;108;p2",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 3405034,
+          "top_emu": 114300,
+          "width_emu": 5181600,
+          "height_emu": 369332,
+          "left_cm": 9.46,
+          "top_cm": 0.32,
+          "width_cm": 14.39,
+          "height_cm": 1.03,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 18.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        }
+      ],
+      "notes": null,
+      "background": {
+        "type": "BACKGROUND (5)",
+        "type_name": "BACKGROUND"
+      }
+    },
+    {
+      "slide_index": 2,
+      "slide_number": 3,
+      "layout_name": "Title and Content",
+      "shapes": [
+        {
+          "shape_id": 113,
+          "name": "Google Shape;113;p3",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 4790969,
+          "top_emu": 898751,
+          "width_emu": 2610062,
+          "height_emu": 695099,
+          "left_cm": 13.31,
+          "top_cm": 2.5,
+          "width_cm": 7.25,
+          "height_cm": 1.93,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 114,
+          "name": "Google Shape;114;p3",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 1046008,
+          "top_emu": 1930400,
+          "width_emu": 3300157,
+          "height_emu": 3286434,
+          "left_cm": 2.91,
+          "top_cm": 5.36,
+          "width_cm": 9.17,
+          "height_cm": 9.13,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 115,
+          "name": "Google Shape;115;p3",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 3405034,
+          "top_emu": 114300,
+          "width_emu": 5181600,
+          "height_emu": 369332,
+          "left_cm": 9.46,
+          "top_cm": 0.32,
+          "width_cm": 14.39,
+          "height_cm": 1.03,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 18.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 116,
+          "name": "Google Shape;116;p3",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 4790969,
+          "top_emu": 898751,
+          "width_emu": 2610062,
+          "height_emu": 695099,
+          "left_cm": 13.31,
+          "top_cm": 2.5,
+          "width_cm": 7.25,
+          "height_cm": 1.93,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 117,
+          "name": "Google Shape;117;p3",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 920559,
+          "top_emu": 6384932,
+          "width_emu": 327098,
+          "height_emu": 400110,
+          "left_cm": 2.56,
+          "top_cm": 17.74,
+          "width_cm": 0.91,
+          "height_cm": 1.11,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "3",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "3",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "3",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "2D588C",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "0",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 118,
+          "name": "Google Shape;118;p3",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 4870450,
+          "top_emu": 1055581,
+          "width_emu": 2457450,
+          "height_emu": 400110,
+          "left_cm": 13.53,
+          "top_cm": 2.93,
+          "width_cm": 6.83,
+          "height_cm": 1.11,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "المقدمة",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "المقدمة",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "المقدمة",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 119,
+          "name": "Google Shape;119;p3",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 7675818,
+          "top_emu": 1836174,
+          "width_emu": 3300157,
+          "height_emu": 369332,
+          "left_cm": 21.32,
+          "top_cm": 5.1,
+          "width_cm": 9.17,
+          "height_cm": 1.03,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "نموذج نص عربي تجريبي",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "نموذج نص عربي تجريبي",
+                "alignment": "RIGHT (3)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "نموذج نص عربي تجريبي",
+                    "font_name": "Tajawal Medium",
+                    "font_size_pt": 18.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "2D588C",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal Medium",
+                    "latin_font": "Tajawal Medium",
+                    "ea_font": "Tajawal Medium"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "r",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 120,
+          "name": "Google Shape;120;p3",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 6263238,
+          "top_emu": 2459020,
+          "width_emu": 4712737,
+          "height_emu": 2005029,
+          "left_cm": 17.4,
+          "top_cm": 6.83,
+          "width_cm": 13.09,
+          "height_cm": 5.57,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 121,
+          "name": "Google Shape;121;p3",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 10489588,
+          "top_emu": 2438365,
+          "width_emu": 493940,
+          "height_emu": 446899,
+          "left_cm": 29.14,
+          "top_cm": 6.77,
+          "width_cm": 1.37,
+          "height_cm": 1.24,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 122,
+          "name": "Google Shape;122;p3",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 6240449,
+          "top_emu": 4020071,
+          "width_emu": 499476,
+          "height_emu": 443978,
+          "left_cm": 17.33,
+          "top_cm": 11.17,
+          "width_cm": 1.39,
+          "height_cm": 1.23,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 123,
+          "name": "Google Shape;123;p3",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 6288448,
+          "top_emu": 2615000,
+          "width_emu": 4576235,
+          "height_emu": 1077218,
+          "left_cm": 17.47,
+          "top_cm": 7.26,
+          "width_cm": 12.71,
+          "height_cm": 2.99,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "نموذج نص عربي تجريبي يُستخدم في معاينة التصاميم قبل إدخال المحتوى الحقيقي، الغرض منه توضيح شكل النص وتوزيعه داخل المساحة المحددة للتصميم دون الاعتماد على المحتوى الفعلي.",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "نموذج نص عربي تجريبي يُستخدم في معاينة التصاميم قبل إدخال المحتوى الحقيقي، الغرض منه توضيح شكل النص وتوزيعه داخل المساحة المحددة للتصميم دون الاعتماد على المحتوى الفعلي.",
+                "alignment": "RIGHT (3)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "نموذج نص عربي تجريبي يُستخدم في معاينة التصاميم قبل إدخال المحتوى الحقيقي، الغرض منه توضيح شكل النص وتوزيعه داخل المساحة المحددة للتصميم دون الاعتماد على المحتوى الفعلي.",
+                    "font_name": "Tajawal",
+                    "font_size_pt": 16.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal",
+                    "latin_font": "Tajawal",
+                    "ea_font": "Tajawal"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "r",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 124,
+          "name": "Google Shape;124;p3",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 1084108,
+          "top_emu": 1968500,
+          "width_emu": 3222625,
+          "height_emu": 3213100,
+          "left_cm": 3.01,
+          "top_cm": 5.47,
+          "width_cm": 8.95,
+          "height_cm": 8.93,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 125,
+          "name": "Google Shape;125;p3",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 9030651,
+          "top_emu": 3775180,
+          "width_emu": 724001,
+          "height_emu": 752580,
+          "left_cm": 25.09,
+          "top_cm": 10.49,
+          "width_cm": 2.01,
+          "height_cm": 2.09,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 126,
+          "name": "Google Shape;126;p3",
+          "shape_type": "AUTO_SHAPE (1)",
+          "left_emu": 10347158,
+          "top_emu": 183666,
+          "width_emu": 1844842,
+          "height_emu": 1588168,
+          "left_cm": 28.74,
+          "top_cm": 0.51,
+          "width_cm": 5.12,
+          "height_cm": 4.41,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "يوجد وصف أسفل الشريحة",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "يوجد وصف أسفل الشريحة",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "يوجد وصف أسفل الشريحة",
+                    "font_name": "Arial",
+                    "font_size_pt": 18.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_theme": "DARK_1 (1)",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Arial",
+                    "latin_font": "Arial",
+                    "ea_font": "Arial"
+                  }
+                ],
+                "rtl": "0",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "NONE (0)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "SOLID (1)",
+            "type_name": "SOLID",
+            "fore_color": {
+              "rgb": "FFFF00",
+              "theme_color": "NOT_THEME_COLOR (0)",
+              "brightness": 0
+            }
+          },
+          "line": {
+            "width_pt": 1.5,
+            "color": "082836"
+          }
+        }
+      ],
+      "notes": null,
+      "background": {
+        "type": "BACKGROUND (5)",
+        "type_name": "BACKGROUND"
+      }
+    },
+    {
+      "slide_index": 3,
+      "slide_number": 4,
+      "layout_name": "Title and Content",
+      "shapes": [
+        {
+          "shape_id": 132,
+          "name": "Google Shape;132;p4",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 920559,
+          "top_emu": 6384932,
+          "width_emu": 327098,
+          "height_emu": 400110,
+          "left_cm": 2.56,
+          "top_cm": 17.74,
+          "width_cm": 0.91,
+          "height_cm": 1.11,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "6",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "6",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "6",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "2D588C",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "0",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 133,
+          "name": "Google Shape;133;p4",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 8781538,
+          "top_emu": 2595307,
+          "width_emu": 2492769,
+          "height_emu": 782170,
+          "left_cm": 24.39,
+          "top_cm": 7.21,
+          "width_cm": 6.92,
+          "height_cm": 2.17,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 134,
+          "name": "Google Shape;134;p4",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 4849615,
+          "top_emu": 2595307,
+          "width_emu": 2492769,
+          "height_emu": 782170,
+          "left_cm": 13.47,
+          "top_cm": 7.21,
+          "width_cm": 6.92,
+          "height_cm": 2.17,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 135,
+          "name": "Google Shape;135;p4",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 912265,
+          "top_emu": 2595307,
+          "width_emu": 2492769,
+          "height_emu": 782170,
+          "left_cm": 2.53,
+          "top_cm": 7.21,
+          "width_cm": 6.92,
+          "height_cm": 2.17,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 136,
+          "name": "Google Shape;136;p4",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 8781538,
+          "top_emu": 2802761,
+          "width_emu": 2457450,
+          "height_emu": 338554,
+          "left_cm": 24.39,
+          "top_cm": 7.79,
+          "width_cm": 6.83,
+          "height_cm": 0.94,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "الذكاء الاصطناعي (AI)",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "الذكاء الاصطناعي (AI)",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "الذكاء الاصطناعي (AI)",
+                    "font_name": "Tajawal",
+                    "font_size_pt": 16.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal",
+                    "latin_font": "Tajawal",
+                    "ea_font": "Tajawal"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 137,
+          "name": "Google Shape;137;p4",
+          "shape_type": "AUTO_SHAPE (1)",
+          "left_emu": -1,
+          "top_emu": 0,
+          "width_emu": 12192000,
+          "height_emu": 6858000,
+          "left_cm": -0.0,
+          "top_cm": 0.0,
+          "width_cm": 33.87,
+          "height_cm": 19.05,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "",
+                    "font_name": null,
+                    "font_size_pt": null,
+                    "bold": null,
+                    "italic": null,
+                    "underline": null,
+                    "lang": null,
+                    "altLang": null,
+                    "dirty": null
+                  }
+                ],
+                "rtl": "0",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "NONE (0)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "SOLID (1)",
+            "type_name": "SOLID",
+            "fore_color": {
+              "theme_color": "DARK_1 (1)",
+              "brightness": 0
+            }
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 138,
+          "name": "Google Shape;138;p4",
+          "shape_type": "AUTO_SHAPE (1)",
+          "left_emu": 953011,
+          "top_emu": 1935480,
+          "width_emu": 10321295,
+          "height_emu": 3611880,
+          "left_cm": 2.65,
+          "top_cm": 5.38,
+          "width_cm": 28.67,
+          "height_cm": 10.03,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "",
+                    "font_name": null,
+                    "font_size_pt": null,
+                    "bold": null,
+                    "italic": null,
+                    "underline": null,
+                    "lang": null,
+                    "altLang": null,
+                    "dirty": null
+                  }
+                ],
+                "rtl": "0",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "NONE (0)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "SOLID (1)",
+            "type_name": "SOLID",
+            "fore_color": {
+              "theme_color": "LIGHT_1 (2)",
+              "brightness": 0
+            }
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 139,
+          "name": "Google Shape;139;p4",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 10676935,
+          "top_emu": 1986685,
+          "width_emu": 562053,
+          "height_emu": 504895,
+          "left_cm": 29.66,
+          "top_cm": 5.52,
+          "width_cm": 1.56,
+          "height_cm": 1.4,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        }
+      ],
+      "notes": null,
+      "background": {
+        "type": "BACKGROUND (5)",
+        "type_name": "BACKGROUND"
+      }
+    },
+    {
+      "slide_index": 4,
+      "slide_number": 5,
+      "layout_name": "Title and Content",
+      "shapes": [
+        {
+          "shape_id": 145,
+          "name": "Google Shape;145;p5",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 3884635,
+          "top_emu": 860142,
+          "width_emu": 4422731,
+          "height_emu": 695099,
+          "left_cm": 10.79,
+          "top_cm": 2.39,
+          "width_cm": 12.29,
+          "height_cm": 1.93,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 146,
+          "name": "Google Shape;146;p5",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 3818244,
+          "top_emu": 977750,
+          "width_emu": 4555512,
+          "height_emu": 400110,
+          "left_cm": 10.61,
+          "top_cm": 2.72,
+          "width_cm": 12.65,
+          "height_cm": 1.11,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "نشاط 1.1 (---)",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "نشاط 1.1 (---)",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "نشاط 1.1 (---)",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 147,
+          "name": "Google Shape;147;p5",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 920559,
+          "top_emu": 6384932,
+          "width_emu": 327098,
+          "height_emu": 400110,
+          "left_cm": 2.56,
+          "top_cm": 17.74,
+          "width_cm": 0.91,
+          "height_cm": 1.11,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "5",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "5",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "5",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "2D588C",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "0",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 148,
+          "name": "Google Shape;148;p5",
+          "shape_type": "AUTO_SHAPE (1)",
+          "left_emu": 10347158,
+          "top_emu": 183666,
+          "width_emu": 1844842,
+          "height_emu": 1588168,
+          "left_cm": 28.74,
+          "top_cm": 0.51,
+          "width_cm": 5.12,
+          "height_cm": 4.41,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "يوجد وصف أسفل الشريحة",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "يوجد وصف أسفل الشريحة",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "يوجد وصف أسفل الشريحة",
+                    "font_name": "Arial",
+                    "font_size_pt": 18.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_theme": "DARK_1 (1)",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Arial",
+                    "latin_font": "Arial",
+                    "ea_font": "Arial"
+                  }
+                ],
+                "rtl": "0",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "NONE (0)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "SOLID (1)",
+            "type_name": "SOLID",
+            "fore_color": {
+              "rgb": "FFFF00",
+              "theme_color": "NOT_THEME_COLOR (0)",
+              "brightness": 0
+            }
+          },
+          "line": {
+            "width_pt": 1.5,
+            "color": "082836"
+          }
+        },
+        {
+          "shape_id": 149,
+          "name": "Google Shape;149;p5",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 3405034,
+          "top_emu": 114300,
+          "width_emu": 5181600,
+          "height_emu": 369332,
+          "left_cm": 9.46,
+          "top_cm": 0.32,
+          "width_cm": 14.39,
+          "height_cm": 1.03,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 18.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        }
+      ],
+      "notes": "هذا النشاط موضح بالتفصيل في ملف DSAI_U01_Activity1.1\nالاجابة الصحيحة:\n\nتغذية راجعة للإجابة الصحيحة:\n\nتغذية راجعة للإجابة الخاطئة:\n\nتغذية بعد نفاذ المحاولات: \nالاجابة الصحيحة هي:\nعدد المحاولات: 2\n\nالأزرار التي تظهر بعد استنفاذ المحاولات: زر \"مراجعة المحتوى\"، زر \"أعد المحاولة\"\n\nعند النقر على زر \"مراجعة المحتوى\" ينتقل الطالب إلى المحتوى في صفحة رقم \nعند النقر على زر \"أعد المحاولة\" يتم إعادة السؤال للطالب\n\nتعليمات على الشاشة (ان وجد)\n",
+      "background": {
+        "type": "BACKGROUND (5)",
+        "type_name": "BACKGROUND"
+      }
+    },
+    {
+      "slide_index": 5,
+      "slide_number": 6,
+      "layout_name": "Title and Content",
+      "shapes": [
+        {
+          "shape_id": 155,
+          "name": "Google Shape;155;p6",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 3884635,
+          "top_emu": 860142,
+          "width_emu": 4422731,
+          "height_emu": 695099,
+          "left_cm": 10.79,
+          "top_cm": 2.39,
+          "width_cm": 12.29,
+          "height_cm": 1.93,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 156,
+          "name": "Google Shape;156;p6",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 3818244,
+          "top_emu": 977750,
+          "width_emu": 4555512,
+          "height_emu": 400110,
+          "left_cm": 10.61,
+          "top_cm": 2.72,
+          "width_cm": 12.65,
+          "height_cm": 1.11,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "نشاط 1.2 (---)",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "نشاط 1.2 (---)",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "نشاط 1.2 (---)",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 157,
+          "name": "Google Shape;157;p6",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 920559,
+          "top_emu": 6384932,
+          "width_emu": 327098,
+          "height_emu": 400110,
+          "left_cm": 2.56,
+          "top_cm": 17.74,
+          "width_cm": 0.91,
+          "height_cm": 1.11,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "5",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "5",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "5",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "2D588C",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "0",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 158,
+          "name": "Google Shape;158;p6",
+          "shape_type": "AUTO_SHAPE (1)",
+          "left_emu": 10347158,
+          "top_emu": 183666,
+          "width_emu": 1844842,
+          "height_emu": 1588168,
+          "left_cm": 28.74,
+          "top_cm": 0.51,
+          "width_cm": 5.12,
+          "height_cm": 4.41,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "يوجد وصف أسفل الشريحة",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "يوجد وصف أسفل الشريحة",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "يوجد وصف أسفل الشريحة",
+                    "font_name": "Arial",
+                    "font_size_pt": 18.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_theme": "DARK_1 (1)",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Arial",
+                    "latin_font": "Arial",
+                    "ea_font": "Arial"
+                  }
+                ],
+                "rtl": "0",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "NONE (0)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "SOLID (1)",
+            "type_name": "SOLID",
+            "fore_color": {
+              "rgb": "FFFF00",
+              "theme_color": "NOT_THEME_COLOR (0)",
+              "brightness": 0
+            }
+          },
+          "line": {
+            "width_pt": 1.5,
+            "color": "082836"
+          }
+        },
+        {
+          "shape_id": 159,
+          "name": "Google Shape;159;p6",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 3405034,
+          "top_emu": 114300,
+          "width_emu": 5181600,
+          "height_emu": 369332,
+          "left_cm": 9.46,
+          "top_cm": 0.32,
+          "width_cm": 14.39,
+          "height_cm": 1.03,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 18.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        }
+      ],
+      "notes": "هذا النشاط موضح بالتفصيل في ملف DSAI_U01_Activity1.1\nالاجابة الصحيحة:\n\nتغذية راجعة للإجابة الصحيحة:\n\nتغذية راجعة للإجابة الخاطئة:\n\nتغذية بعد نفاذ المحاولات: \nالاجابة الصحيحة هي:\nعدد المحاولات: 2\n\nالأزرار التي تظهر بعد استنفاذ المحاولات: زر \"مراجعة المحتوى\"، زر \"أعد المحاولة\"\n\nعند النقر على زر \"مراجعة المحتوى\" ينتقل الطالب إلى المحتوى في صفحة رقم \nعند النقر على زر \"أعد المحاولة\" يتم إعادة السؤال للطالب\n\nتعليمات على الشاشة (ان وجد)\n",
+      "background": {
+        "type": "BACKGROUND (5)",
+        "type_name": "BACKGROUND"
+      }
+    },
+    {
+      "slide_index": 6,
+      "slide_number": 7,
+      "layout_name": "Title and Content",
+      "shapes": [
+        {
+          "shape_id": 165,
+          "name": "Google Shape;165;p7",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 3884635,
+          "top_emu": 860142,
+          "width_emu": 4422731,
+          "height_emu": 695099,
+          "left_cm": 10.79,
+          "top_cm": 2.39,
+          "width_cm": 12.29,
+          "height_cm": 1.93,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 166,
+          "name": "Google Shape;166;p7",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 3818244,
+          "top_emu": 977750,
+          "width_emu": 4555512,
+          "height_emu": 400110,
+          "left_cm": 10.61,
+          "top_cm": 2.72,
+          "width_cm": 12.65,
+          "height_cm": 1.11,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "نشاط 1.3 (---)",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "نشاط 1.3 (---)",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "نشاط 1.3 (---)",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 167,
+          "name": "Google Shape;167;p7",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 920559,
+          "top_emu": 6384932,
+          "width_emu": 327098,
+          "height_emu": 400110,
+          "left_cm": 2.56,
+          "top_cm": 17.74,
+          "width_cm": 0.91,
+          "height_cm": 1.11,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "5",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "5",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "5",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "2D588C",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "0",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 168,
+          "name": "Google Shape;168;p7",
+          "shape_type": "AUTO_SHAPE (1)",
+          "left_emu": 10347158,
+          "top_emu": 183666,
+          "width_emu": 1844842,
+          "height_emu": 1588168,
+          "left_cm": 28.74,
+          "top_cm": 0.51,
+          "width_cm": 5.12,
+          "height_cm": 4.41,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "يوجد وصف أسفل الشريحة",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "يوجد وصف أسفل الشريحة",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "يوجد وصف أسفل الشريحة",
+                    "font_name": "Arial",
+                    "font_size_pt": 18.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_theme": "DARK_1 (1)",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Arial",
+                    "latin_font": "Arial",
+                    "ea_font": "Arial"
+                  }
+                ],
+                "rtl": "0",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "NONE (0)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "SOLID (1)",
+            "type_name": "SOLID",
+            "fore_color": {
+              "rgb": "FFFF00",
+              "theme_color": "NOT_THEME_COLOR (0)",
+              "brightness": 0
+            }
+          },
+          "line": {
+            "width_pt": 1.5,
+            "color": "082836"
+          }
+        },
+        {
+          "shape_id": 169,
+          "name": "Google Shape;169;p7",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 3405034,
+          "top_emu": 114300,
+          "width_emu": 5181600,
+          "height_emu": 369332,
+          "left_cm": 9.46,
+          "top_cm": 0.32,
+          "width_cm": 14.39,
+          "height_cm": 1.03,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 18.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        }
+      ],
+      "notes": "هذا النشاط موضح بالتفصيل في ملف DSAI_U01_Activity1.1\nالاجابة الصحيحة:\n\nتغذية راجعة للإجابة الصحيحة:\n\nتغذية راجعة للإجابة الخاطئة:\n\nتغذية بعد نفاذ المحاولات: \nالاجابة الصحيحة هي:\nعدد المحاولات: 2\n\nالأزرار التي تظهر بعد استنفاذ المحاولات: زر \"مراجعة المحتوى\"، زر \"أعد المحاولة\"\n\nعند النقر على زر \"مراجعة المحتوى\" ينتقل الطالب إلى المحتوى في صفحة رقم \nعند النقر على زر \"أعد المحاولة\" يتم إعادة السؤال للطالب\n\nتعليمات على الشاشة (ان وجد)\n",
+      "background": {
+        "type": "BACKGROUND (5)",
+        "type_name": "BACKGROUND"
+      }
+    },
+    {
+      "slide_index": 7,
+      "slide_number": 8,
+      "layout_name": "Title and Content",
+      "shapes": [
+        {
+          "shape_id": 174,
+          "name": "Google Shape;174;p8",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 782340,
+          "top_emu": 6352848,
+          "width_emu": 525762,
+          "height_emu": 400110,
+          "left_cm": 2.17,
+          "top_cm": 17.65,
+          "width_cm": 1.46,
+          "height_cm": 1.11,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "12",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "12",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "12",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "2D588C",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "0",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 175,
+          "name": "Google Shape;175;p8",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 920559,
+          "top_emu": 1671406,
+          "width_emu": 10421209,
+          "height_emu": 515526,
+          "left_cm": 2.56,
+          "top_cm": 4.64,
+          "width_cm": 28.95,
+          "height_cm": 1.43,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "نموذج نص عربي: نموذج نص عربي",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "نموذج نص عربي: نموذج نص عربي",
+                "alignment": "JUSTIFY (4)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "نموذج نص عربي",
+                    "font_name": "Tajawal",
+                    "font_size_pt": 20.0,
+                    "bold": true,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "2E6CEC",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal",
+                    "latin_font": "Tajawal",
+                    "ea_font": "Tajawal"
+                  },
+                  {
+                    "text": ": نموذج نص عربي",
+                    "font_name": "Tajawal",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "2E6CEC",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal",
+                    "latin_font": "Tajawal",
+                    "ea_font": "Tajawal"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "just",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0,
+                "line_spacing_pct": 150.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 176,
+          "name": "Google Shape;176;p8",
+          "shape_type": "PICTURE (13)",
+          "left_emu": 3884635,
+          "top_emu": 860142,
+          "width_emu": 4422731,
+          "height_emu": 695099,
+          "left_cm": 10.79,
+          "top_cm": 2.39,
+          "width_cm": 12.29,
+          "height_cm": 1.93,
+          "rotation": 0.0,
+          "is_image": true,
+          "image_content_type": "image/png",
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 177,
+          "name": "Google Shape;177;p8",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 3818244,
+          "top_emu": 977750,
+          "width_emu": 4555512,
+          "height_emu": 400110,
+          "left_cm": 10.61,
+          "top_cm": 2.72,
+          "width_cm": 12.65,
+          "height_cm": 1.11,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "ملخص الوحدة الدراسية",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "ملخص الوحدة الدراسية",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "ملخص الوحدة الدراسية",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 20.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 178,
+          "name": "Google Shape;178;p8",
+          "shape_type": "TEXT_BOX (17)",
+          "left_emu": 3405034,
+          "top_emu": 114300,
+          "width_emu": 5181600,
+          "height_emu": 369332,
+          "left_cm": 9.46,
+          "top_cm": 0.32,
+          "width_cm": 14.39,
+          "height_cm": 1.03,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+                "alignment": "CENTER (2)",
+                "level": 0,
+                "runs": [
+                  {
+                    "text": "المحاضرة الأولى: نموذج نص عربي تجريبي",
+                    "font_name": "Tajawal ExtraBold",
+                    "font_size_pt": 18.0,
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "font_color_rgb": "333333",
+                    "lang": "ar-JO",
+                    "altLang": null,
+                    "dirty": null,
+                    "cs_font": "Tajawal ExtraBold",
+                    "latin_font": "Tajawal ExtraBold",
+                    "ea_font": "Tajawal ExtraBold"
+                  }
+                ],
+                "rtl": "1",
+                "algn": "ctr",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "SHAPE_TO_FIT_TEXT (1)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        }
+      ],
+      "notes": null,
+      "background": {
+        "type": "BACKGROUND (5)",
+        "type_name": "BACKGROUND"
+      }
+    }
+  ],
+  "slide_masters": [
+    {
+      "layouts": [
+        {
+          "name": "Title Slide",
+          "placeholder_count": 0
+        },
+        {
+          "name": "Title and Content",
+          "placeholder_count": 0
+        },
+        {
+          "name": "SECTION_HEADER",
+          "placeholder_count": 5
+        },
+        {
+          "name": "TWO_OBJECTS",
+          "placeholder_count": 6
+        },
+        {
+          "name": "TWO_OBJECTS_WITH_TEXT",
+          "placeholder_count": 8
+        },
+        {
+          "name": "TITLE_ONLY",
+          "placeholder_count": 4
+        },
+        {
+          "name": "BLANK",
+          "placeholder_count": 3
+        },
+        {
+          "name": "OBJECT_WITH_CAPTION_TEXT",
+          "placeholder_count": 6
+        },
+        {
+          "name": "PICTURE_WITH_CAPTION_TEXT",
+          "placeholder_count": 6
+        },
+        {
+          "name": "VERTICAL_TEXT",
+          "placeholder_count": 5
+        },
+        {
+          "name": "VERTICAL_TITLE_AND_VERTICAL_TEXT",
+          "placeholder_count": 5
+        }
+      ],
+      "shapes": [
+        {
+          "shape_id": 10,
+          "name": "Google Shape;10;p9",
+          "shape_type": "PLACEHOLDER (14)",
+          "left_emu": 838200,
+          "top_emu": 365125,
+          "width_emu": 10515600,
+          "height_emu": 1325563,
+          "left_cm": 2.33,
+          "top_cm": 1.01,
+          "width_cm": 29.21,
+          "height_cm": 3.68,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "",
+                "alignment": null,
+                "level": 0,
+                "runs": [],
+                "rtl": null,
+                "algn": null
+              }
+            ],
+            "auto_size": "TEXT_TO_FIT_SHAPE (2)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 11,
+          "name": "Google Shape;11;p9",
+          "shape_type": "PLACEHOLDER (14)",
+          "left_emu": 838200,
+          "top_emu": 1825625,
+          "width_emu": 10515600,
+          "height_emu": 4351338,
+          "left_cm": 2.33,
+          "top_cm": 5.07,
+          "width_cm": 29.21,
+          "height_cm": 12.09,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "",
+                "alignment": null,
+                "level": 0,
+                "runs": [],
+                "rtl": null,
+                "algn": null
+              }
+            ],
+            "auto_size": "TEXT_TO_FIT_SHAPE (2)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 12,
+          "name": "Google Shape;12;p9",
+          "shape_type": "PLACEHOLDER (14)",
+          "left_emu": 838200,
+          "top_emu": 6356350,
+          "width_emu": 2743200,
+          "height_emu": 365125,
+          "left_cm": 2.33,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "",
+                "alignment": null,
+                "level": 0,
+                "runs": [],
+                "rtl": null,
+                "algn": null
+              }
+            ],
+            "auto_size": "NONE (0)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 13,
+          "name": "Google Shape;13;p9",
+          "shape_type": "PLACEHOLDER (14)",
+          "left_emu": 4038600,
+          "top_emu": 6356350,
+          "width_emu": 4114800,
+          "height_emu": 365125,
+          "left_cm": 11.22,
+          "top_cm": 17.66,
+          "width_cm": 11.43,
+          "height_cm": 1.01,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "",
+                "alignment": null,
+                "level": 0,
+                "runs": [],
+                "rtl": null,
+                "algn": null
+              }
+            ],
+            "auto_size": "NONE (0)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        },
+        {
+          "shape_id": 14,
+          "name": "Google Shape;14;p9",
+          "shape_type": "PLACEHOLDER (14)",
+          "left_emu": 8610600,
+          "top_emu": 6356350,
+          "width_emu": 2743200,
+          "height_emu": 365125,
+          "left_cm": 23.92,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "rotation": 0.0,
+          "text_frame": {
+            "text": "‹#›",
+            "word_wrap": true,
+            "paragraphs": [
+              {
+                "text": "‹#›",
+                "alignment": "LEFT (1)",
+                "level": 0,
+                "runs": [],
+                "rtl": "0",
+                "algn": "l",
+                "space_before_pt": 0.0,
+                "space_after_pt": 0.0
+              }
+            ],
+            "auto_size": "NONE (0)",
+            "margin_left_cm": 0.25,
+            "margin_right_cm": 0.25,
+            "margin_top_cm": 0.13,
+            "margin_bottom_cm": 0.13
+          },
+          "fill": {
+            "type": "BACKGROUND (5)",
+            "type_name": "BACKGROUND"
+          },
+          "line": {
+            "width_pt": null
+          }
+        }
+      ]
+    }
+  ],
+  "slide_layouts": [
+    {
+      "name": "Title Slide",
+      "shapes": []
+    },
+    {
+      "name": "Title and Content",
+      "shapes": []
+    },
+    {
+      "name": "SECTION_HEADER",
+      "shapes": [
+        {
+          "idx": 0,
+          "type": "TITLE (1)",
+          "name": "Google Shape;26;p12",
+          "left_cm": 2.31,
+          "top_cm": 4.75,
+          "width_cm": 29.21,
+          "height_cm": 7.92,
+          "text": ""
+        },
+        {
+          "idx": 1,
+          "type": "BODY (2)",
+          "name": "Google Shape;27;p12",
+          "left_cm": 2.31,
+          "top_cm": 12.75,
+          "width_cm": 29.21,
+          "height_cm": 4.17,
+          "text": ""
+        },
+        {
+          "idx": 10,
+          "type": "DATE (16)",
+          "name": "Google Shape;28;p12",
+          "left_cm": 2.33,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 11,
+          "type": "FOOTER (15)",
+          "name": "Google Shape;29;p12",
+          "left_cm": 11.22,
+          "top_cm": 17.66,
+          "width_cm": 11.43,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 12,
+          "type": "SLIDE_NUMBER (13)",
+          "name": "Google Shape;30;p12",
+          "left_cm": 23.92,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": "‹#›"
+        }
+      ]
+    },
+    {
+      "name": "TWO_OBJECTS",
+      "shapes": [
+        {
+          "idx": 0,
+          "type": "TITLE (1)",
+          "name": "Google Shape;32;p13",
+          "left_cm": 2.33,
+          "top_cm": 1.01,
+          "width_cm": 29.21,
+          "height_cm": 3.68,
+          "text": ""
+        },
+        {
+          "idx": 1,
+          "type": "BODY (2)",
+          "name": "Google Shape;33;p13",
+          "left_cm": 2.33,
+          "top_cm": 5.07,
+          "width_cm": 14.39,
+          "height_cm": 12.09,
+          "text": ""
+        },
+        {
+          "idx": 2,
+          "type": "BODY (2)",
+          "name": "Google Shape;34;p13",
+          "left_cm": 17.14,
+          "top_cm": 5.07,
+          "width_cm": 14.39,
+          "height_cm": 12.09,
+          "text": ""
+        },
+        {
+          "idx": 10,
+          "type": "DATE (16)",
+          "name": "Google Shape;35;p13",
+          "left_cm": 2.33,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 11,
+          "type": "FOOTER (15)",
+          "name": "Google Shape;36;p13",
+          "left_cm": 11.22,
+          "top_cm": 17.66,
+          "width_cm": 11.43,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 12,
+          "type": "SLIDE_NUMBER (13)",
+          "name": "Google Shape;37;p13",
+          "left_cm": 23.92,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": "‹#›"
+        }
+      ]
+    },
+    {
+      "name": "TWO_OBJECTS_WITH_TEXT",
+      "shapes": [
+        {
+          "idx": 0,
+          "type": "TITLE (1)",
+          "name": "Google Shape;39;p14",
+          "left_cm": 2.33,
+          "top_cm": 1.01,
+          "width_cm": 29.21,
+          "height_cm": 3.68,
+          "text": ""
+        },
+        {
+          "idx": 1,
+          "type": "BODY (2)",
+          "name": "Google Shape;40;p14",
+          "left_cm": 2.33,
+          "top_cm": 4.67,
+          "width_cm": 14.33,
+          "height_cm": 2.29,
+          "text": ""
+        },
+        {
+          "idx": 2,
+          "type": "BODY (2)",
+          "name": "Google Shape;41;p14",
+          "left_cm": 2.33,
+          "top_cm": 6.96,
+          "width_cm": 14.33,
+          "height_cm": 10.23,
+          "text": ""
+        },
+        {
+          "idx": 3,
+          "type": "BODY (2)",
+          "name": "Google Shape;42;p14",
+          "left_cm": 17.14,
+          "top_cm": 4.67,
+          "width_cm": 14.4,
+          "height_cm": 2.29,
+          "text": ""
+        },
+        {
+          "idx": 4,
+          "type": "BODY (2)",
+          "name": "Google Shape;43;p14",
+          "left_cm": 17.14,
+          "top_cm": 6.96,
+          "width_cm": 14.4,
+          "height_cm": 10.23,
+          "text": ""
+        },
+        {
+          "idx": 10,
+          "type": "DATE (16)",
+          "name": "Google Shape;44;p14",
+          "left_cm": 2.33,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 11,
+          "type": "FOOTER (15)",
+          "name": "Google Shape;45;p14",
+          "left_cm": 11.22,
+          "top_cm": 17.66,
+          "width_cm": 11.43,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 12,
+          "type": "SLIDE_NUMBER (13)",
+          "name": "Google Shape;46;p14",
+          "left_cm": 23.92,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": "‹#›"
+        }
+      ]
+    },
+    {
+      "name": "TITLE_ONLY",
+      "shapes": [
+        {
+          "idx": 0,
+          "type": "TITLE (1)",
+          "name": "Google Shape;48;p15",
+          "left_cm": 2.33,
+          "top_cm": 1.01,
+          "width_cm": 29.21,
+          "height_cm": 3.68,
+          "text": ""
+        },
+        {
+          "idx": 10,
+          "type": "DATE (16)",
+          "name": "Google Shape;49;p15",
+          "left_cm": 2.33,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 11,
+          "type": "FOOTER (15)",
+          "name": "Google Shape;50;p15",
+          "left_cm": 11.22,
+          "top_cm": 17.66,
+          "width_cm": 11.43,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 12,
+          "type": "SLIDE_NUMBER (13)",
+          "name": "Google Shape;51;p15",
+          "left_cm": 23.92,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": "‹#›"
+        }
+      ]
+    },
+    {
+      "name": "BLANK",
+      "shapes": [
+        {
+          "idx": 10,
+          "type": "DATE (16)",
+          "name": "Google Shape;53;p16",
+          "left_cm": 2.33,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 11,
+          "type": "FOOTER (15)",
+          "name": "Google Shape;54;p16",
+          "left_cm": 11.22,
+          "top_cm": 17.66,
+          "width_cm": 11.43,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 12,
+          "type": "SLIDE_NUMBER (13)",
+          "name": "Google Shape;55;p16",
+          "left_cm": 23.92,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": "‹#›"
+        }
+      ]
+    },
+    {
+      "name": "OBJECT_WITH_CAPTION_TEXT",
+      "shapes": [
+        {
+          "idx": 0,
+          "type": "TITLE (1)",
+          "name": "Google Shape;57;p17",
+          "left_cm": 2.33,
+          "top_cm": 1.27,
+          "width_cm": 10.92,
+          "height_cm": 4.45,
+          "text": ""
+        },
+        {
+          "idx": 1,
+          "type": "BODY (2)",
+          "name": "Google Shape;58;p17",
+          "left_cm": 14.4,
+          "top_cm": 2.74,
+          "width_cm": 17.14,
+          "height_cm": 13.54,
+          "text": ""
+        },
+        {
+          "idx": 2,
+          "type": "BODY (2)",
+          "name": "Google Shape;59;p17",
+          "left_cm": 2.33,
+          "top_cm": 5.71,
+          "width_cm": 10.92,
+          "height_cm": 10.59,
+          "text": ""
+        },
+        {
+          "idx": 10,
+          "type": "DATE (16)",
+          "name": "Google Shape;60;p17",
+          "left_cm": 2.33,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 11,
+          "type": "FOOTER (15)",
+          "name": "Google Shape;61;p17",
+          "left_cm": 11.22,
+          "top_cm": 17.66,
+          "width_cm": 11.43,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 12,
+          "type": "SLIDE_NUMBER (13)",
+          "name": "Google Shape;62;p17",
+          "left_cm": 23.92,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": "‹#›"
+        }
+      ]
+    },
+    {
+      "name": "PICTURE_WITH_CAPTION_TEXT",
+      "shapes": [
+        {
+          "idx": 0,
+          "type": "TITLE (1)",
+          "name": "Google Shape;64;p18",
+          "left_cm": 2.33,
+          "top_cm": 1.27,
+          "width_cm": 10.92,
+          "height_cm": 4.45,
+          "text": ""
+        },
+        {
+          "idx": 2,
+          "type": "PICTURE (18)",
+          "name": "Google Shape;65;p18",
+          "left_cm": 14.4,
+          "top_cm": 2.74,
+          "width_cm": 17.14,
+          "height_cm": 13.54,
+          "text": ""
+        },
+        {
+          "idx": 1,
+          "type": "BODY (2)",
+          "name": "Google Shape;66;p18",
+          "left_cm": 2.33,
+          "top_cm": 5.71,
+          "width_cm": 10.92,
+          "height_cm": 10.59,
+          "text": ""
+        },
+        {
+          "idx": 10,
+          "type": "DATE (16)",
+          "name": "Google Shape;67;p18",
+          "left_cm": 2.33,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 11,
+          "type": "FOOTER (15)",
+          "name": "Google Shape;68;p18",
+          "left_cm": 11.22,
+          "top_cm": 17.66,
+          "width_cm": 11.43,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 12,
+          "type": "SLIDE_NUMBER (13)",
+          "name": "Google Shape;69;p18",
+          "left_cm": 23.92,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": "‹#›"
+        }
+      ]
+    },
+    {
+      "name": "VERTICAL_TEXT",
+      "shapes": [
+        {
+          "idx": 0,
+          "type": "TITLE (1)",
+          "name": "Google Shape;71;p19",
+          "left_cm": 2.33,
+          "top_cm": 1.01,
+          "width_cm": 29.21,
+          "height_cm": 3.68,
+          "text": ""
+        },
+        {
+          "idx": 1,
+          "type": "BODY (2)",
+          "name": "Google Shape;72;p19",
+          "left_cm": 10.89,
+          "top_cm": -3.49,
+          "width_cm": 12.09,
+          "height_cm": 29.21,
+          "text": ""
+        },
+        {
+          "idx": 10,
+          "type": "DATE (16)",
+          "name": "Google Shape;73;p19",
+          "left_cm": 2.33,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 11,
+          "type": "FOOTER (15)",
+          "name": "Google Shape;74;p19",
+          "left_cm": 11.22,
+          "top_cm": 17.66,
+          "width_cm": 11.43,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 12,
+          "type": "SLIDE_NUMBER (13)",
+          "name": "Google Shape;75;p19",
+          "left_cm": 23.92,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": "‹#›"
+        }
+      ]
+    },
+    {
+      "name": "VERTICAL_TITLE_AND_VERTICAL_TEXT",
+      "shapes": [
+        {
+          "idx": 0,
+          "type": "TITLE (1)",
+          "name": "Google Shape;77;p20",
+          "left_cm": 19.82,
+          "top_cm": 5.43,
+          "width_cm": 16.14,
+          "height_cm": 7.3,
+          "text": ""
+        },
+        {
+          "idx": 1,
+          "type": "BODY (2)",
+          "name": "Google Shape;78;p20",
+          "left_cm": 5.0,
+          "top_cm": -1.66,
+          "width_cm": 16.14,
+          "height_cm": 21.48,
+          "text": ""
+        },
+        {
+          "idx": 10,
+          "type": "DATE (16)",
+          "name": "Google Shape;79;p20",
+          "left_cm": 2.33,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 11,
+          "type": "FOOTER (15)",
+          "name": "Google Shape;80;p20",
+          "left_cm": 11.22,
+          "top_cm": 17.66,
+          "width_cm": 11.43,
+          "height_cm": 1.01,
+          "text": ""
+        },
+        {
+          "idx": 12,
+          "type": "SLIDE_NUMBER (13)",
+          "name": "Google Shape;81;p20",
+          "left_cm": 23.92,
+          "top_cm": 17.66,
+          "width_cm": 7.62,
+          "height_cm": 1.01,
+          "text": "‹#›"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "projectCode": "DSAI",
+  "projectName": "تطوير 15 مقرر إلكتروني – جامعة نجران",
+  "clientName": "جامعة نجران",
+  "designerName": "تسنيم خالد",
+  "branding": {
+    "logo": "branding/logo.png",
+    "header": "branding/header.png",
+    "secondaryLogo": "branding/client-logo.png",
+    "colors": {
+      "primary": "#0097A7",
+      "secondary": "#333333",
+      "accent": "#FFB300",
+      "headerBg": "#0097A7",
+      "headerText": "#FFFFFF"
+    }
+  },
+  "units": [
+    {
+      "number": 1,
+      "name": "المهارات الرقمية: المشهد التحولي",
+      "storyboardTypes": [
+        "objectives",
+        "infographic",
+        "pre-test",
+        "interactive-lecture",
+        "pdf-lecture",
+        "video",
+        "activity:3",
+        "discussion",
+        "assignment",
+        "post-test",
+        "summary"
+      ],
+      "status": "pending"
+    }
+  ],
+  "testConfig": {
+    "preTestQuestions": "3-5",
+    "postTestQuestions": "7-10",
+    "courseExamQuestions": null
+  },
+  "createdAt": "2026-02-07",
+  "updatedAt": "2026-02-07"
+}

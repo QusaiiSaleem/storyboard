@@ -1,12 +1,42 @@
 # Storyboard Generator
 
-AI-powered system that transforms raw client course content into production-ready educational storyboard documents (docx/pptx).
+AI-powered system that transforms raw client course content into production-ready educational storyboard documents (DOCX/PPTX) for Arabic e-learning courses.
+
+## Architecture
+
+```
+User provides raw content (PDF, DOCX, PPTX, images)
+  → Main agent COORDINATES (never generates content directly)
+    → Specialized subagents produce content
+      → Template engine builds formatted documents
+        → Output: production-ready DOCX/PPTX files
+```
+
+### Core Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| Template Engine | `engine/docx_engine.py`, `engine/pptx_engine.py` | Builds documents from scratch matching template designs |
+| Engine Skill | `.claude/skills/storyboard-templates/` | API reference for the engine (preloaded by agents) |
+| Subagents (10) | `.claude/agents/storyboard-*.md` | Specialized content producers |
+| Coordinator | `.claude/commands/storyboard.md` | Orchestration workflow (`/storyboard`) |
+| Project Configs | `projects/[code]/config.json` | Per-project metadata and branding |
+| Visual References | `templates/` | Original template files (visual reference ONLY, not edited) |
+
+### How Document Generation Works
+
+The engine uses a **"template-as-code"** approach:
+- Python builders construct DOCX/PPTX documents from scratch
+- All formatting, RTL, fonts, colors, and borders are handled automatically
+- Agents produce CONTENT and call engine builders via `python3 -c "..."`
+- Agents DO NOT open or edit template files directly
+- Each agent preloads the `storyboard-templates` skill for engine API reference
 
 ## Non-Negotiable Rules
 
-1. **COORDINATOR ONLY** — The main agent is an orchestrator. NEVER produce storyboard content directly. Always delegate to specialized subagents.
+1. **COORDINATOR ONLY** — The main agent orchestrates. NEVER produce storyboard content directly. Always delegate to specialized subagents.
 2. **ONE AT A TIME** — Generate each storyboard type individually with user review between each.
-3. **EXACT TEMPLATE MATCH** — Output documents must be visually identical to template files. Use templates as base, fill in content.
+3. **ENGINE BUILDS DOCUMENTS** — All documents are built by the template engine (`engine/`). Never manipulate template files. Agents call builders via Bash.
 4. **ARABIC RTL** — All content in Arabic, right-to-left. No tashkeel/diacritics needed.
 5. **USER DECIDES** — AI suggests (activity types, content distribution), user approves before proceeding.
 
@@ -43,10 +73,27 @@ Phase 3: Individual Storyboards (one at a time)
 11. Summary (الملخص)
 12. Course Exam (if applicable)
 
+## 12 Storyboard Types
+
+| # | Type | Agent | Engine Builder |
+|---|------|-------|----------------|
+| 1 | فيديو موشن (Motion Video) | storyboard-video | VideoBuilder (DOCX) |
+| 2 | نشاط تفاعلي (Interactive Activity) | storyboard-activity | ActivityBuilder (DOCX) |
+| 3 | محاضرة تفاعلية (Interactive Lecture) | storyboard-lecture | LectureBuilder (PPTX) |
+| 4 | محاضرة PDF (PDF Lecture) | storyboard-lecture (Mode 2) | LectureBuilder (PPTX) |
+| 5 | إنفوجرافيك (Learning Map) | storyboard-infographic | InfographicBuilder (DOCX) |
+| 6 | اختبار قبلي (Pre-Test) | storyboard-test | TestBuilder (DOCX) |
+| 7 | اختبار بعدي (Post-Test) | storyboard-test | TestBuilder (DOCX) |
+| 8 | نقاش (Discussion) | storyboard-discussion | DiscussionBuilder (DOCX) |
+| 9 | واجب (Assignment) | storyboard-assignment | AssignmentBuilder (DOCX) |
+| 10 | اختبار المقرر (Course Exam) | storyboard-test | TestBuilder (DOCX) |
+| 11 | أهداف تعليمية (Learning Objectives) | storyboard-objectives | ObjectivesBuilder (DOCX) |
+| 12 | ملخص (Summary) | storyboard-summary | SummaryBuilder (DOCX) |
+
 ## Project Setup
 
 When starting a new project, collect:
-- Project code (e.g., `DSAI`)
+- Project code (e.g., `NJR01`)
 - Project name, client name, institution
 - Client logo + header image file paths
 - Designer name
@@ -59,29 +106,12 @@ When starting a unit, user provides:
 - Which storyboard types and counts needed
 - Unit number and name
 
-## 13 Storyboard Types
-
-| # | Type | Template | Agent |
-|---|------|----------|-------|
-| 1 | فيديو موشن (Motion Video) | قالب فيديو.docx | storyboard-video |
-| 2 | نشاط تفاعلي (Interactive Activity) | قالب النشاط.docx | storyboard-activity |
-| 3 | محاضرة تفاعلية (Interactive Lecture) | قالب المحاضرة التفاعلية- عربي.pptx | storyboard-lecture |
-| 4 | محاضرة PDF (PDF Lecture) | Same as #3, export PDF, no interactive commands | storyboard-lecture |
-| 6 | إنفوجرافيك (Learning Map) | قالب خارطة التعلم.docx | storyboard-infographic |
-| 7 | اختبار قبلي (Pre-Test) | قالب الاختبارات.docx | storyboard-test |
-| 8 | اختبار بعدي (Post-Test) | قالب الاختبارات.docx | storyboard-test |
-| 9 | نقاش (Discussion) | قالب النقاش.docx | storyboard-discussion |
-| 10 | واجب (Assignment) | قالب الواجب.docx | storyboard-assignment |
-| 11 | اختبار المقرر (Course Exam) | قالب الاختبارات.docx | storyboard-test |
-| 12 | أهداف تعليمية (Learning Objectives) | قالب الأهداف التعليمية.docx | storyboard-objectives |
-| 13 | ملخص (Summary) | قالب الملخص.docx | storyboard-summary |
-
 ## File Naming Convention
 
 ```
 [PROJECT_CODE]_U[UNIT_NUMBER]_[Element_Type]
 ```
-Examples: `DSAI_U01_Pre_Test.docx`, `DSAI_U01_Activity1.1.docx`
+Examples: `NJR01_U02_Pre_Test.docx`, `NJR01_U02_Activity2.1.docx`
 
 ## Output Location
 
@@ -89,32 +119,24 @@ Examples: `DSAI_U01_Pre_Test.docx`, `DSAI_U01_Activity1.1.docx`
 output/[project-code]/U[XX]/
 ```
 
-## Key Commands
-
-- Use `/docx` skill for all .docx file creation and editing
-- Use `/pptx` skill for all .pptx file creation and editing
-- Template files are at: `templates/`
-- Project configs at: `projects/[project-code]/config.json`
-
 ## Test Rules
 
 ### Pre-Test
-- 3–5 questions only
+- 3-5 questions only
 - Multiple choice or True/False
 
 ### Post-Test
-- 7–10 questions
+- 7-10 questions
 - Multiple choice or True/False
 
 ### Course Exam
 - Question count per client agreement (stored in project config)
 
 ## Content Input
-- User shares **file paths** — read them directly using Read, /docx, /pptx tools
+- User shares **file paths** -- read them directly using Read tool
 - Content can be: .pptx, .docx, .pdf, images, .txt
 - Each content share = one complete unit
 
 ## Branding
 - Per-project branding (different logos, headers per client)
 - Stored in `projects/[project-code]/branding/`
-- Apply to every generated document

@@ -71,7 +71,9 @@ All document generation uses the template engine at `engine/`:
 - **DOCX documents**: Agents use builders from `engine/docx_engine.py` (TestBuilder, ActivityBuilder, VideoBuilder, ObjectivesBuilder, SummaryBuilder, InfographicBuilder, DiscussionBuilder, AssignmentBuilder)
 - **PPTX documents**: Agents use `LectureBuilder` from `engine/pptx_engine.py`
 
-Agents produce CONTENT and call engine builders via Bash. The engine handles all formatting, RTL, fonts, colors, and borders automatically. Agents should NOT manipulate template files directly.
+Agents produce CONTENT and call engine builders via `python3 -c "..."`. The engine handles all formatting, RTL, fonts, colors, and borders automatically. Agents should NOT manipulate template files directly.
+
+All document-generating agents preload the `storyboard-templates` skill (via `skills:` in their frontmatter), which provides the engine API reference. For detailed builder APIs, agents read the reference files at `.claude/skills/storyboard-templates/references/`.
 
 ## IMPORTANT RULES:
 - You are a COORDINATOR -- never generate storyboard content directly

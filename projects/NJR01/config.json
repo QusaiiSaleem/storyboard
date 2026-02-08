@@ -1,22 +1,24 @@
 {
-  "project_code": "NJR01",
-  "project_name": "تطوير مقررات إلكترونية – جامعة نجران",
-  "client_name": "جامعة نجران",
+  "projectCode": "NJR01",
+  "projectName": "تطوير مقررات إلكترونية – جامعة نجران",
+  "clientName": "جامعة نجران",
   "institution": "كلية علوم الحاسب ونظم المعلومات",
-  "designer_name": "",
-  "logo_path": "",
-  "header_image_path": "",
+  "designerName": "",
+  "branding": {
+    "logo": "",
+    "header": ""
+  },
   "units": [
     {
-      "unit_number": 2,
-      "unit_name": "الذهنية الرقمية وممارسات الابتكار التقني",
-      "content_source": "/Users/qusaiabushanap/Downloads/Chapter2_Arabic (1).pdf",
+      "number": 2,
+      "name": "الذهنية الرقمية وممارسات الابتكار التقني",
+      "contentSource": "User-provided PDF (Chapter 2)",
       "status": "in_progress",
       "storyboards": [
-        { "type": "infographic", "topic": "الأهداف التعليمية", "status": "pending" },
-        { "type": "infographic", "topic": "خارطة التعلم", "status": "pending" },
+        { "type": "objectives", "topic": "الأهداف التعليمية", "status": "generated" },
+        { "type": "infographic", "topic": "خارطة التعلم", "status": "generated" },
         { "type": "pre_test", "topic": "الاختبار القبلي", "status": "pending" },
-        { "type": "interactive_lecture", "topic": "الذهنية الرقمية وممارسات الابتكار التقني", "status": "pending" },
+        { "type": "interactive_lecture", "topic": "الذهنية الرقمية وممارسات الابتكار التقني", "status": "generated" },
         { "type": "pdf_lecture", "topic": "الذهنية الرقمية وممارسات الابتكار التقني", "status": "pending" },
         { "type": "activity", "number": 1, "topic": "مراحل التفكير التصميمي", "status": "pending" },
         { "type": "activity", "number": 2, "topic": "ملاءمة التكنولوجيا للسوق", "status": "pending" },
@@ -27,5 +29,10 @@
         { "type": "post_test", "topic": "الاختبار البعدي", "status": "pending" }
       ]
     }
-  ]
+  ],
+  "testConfig": {
+    "preTestQuestions": "3-5",
+    "postTestQuestions": "7-10",
+    "courseExamQuestions": null
+  }
 }

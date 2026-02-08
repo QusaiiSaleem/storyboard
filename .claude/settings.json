@@ -11,7 +11,8 @@
       "Bash(ls *)",
       "Bash(mkdir *)",
       "Bash(cp *)",
-      "Bash(mv *)"
+      "Bash(mv *)",
+      "Bash(python3 *)"
     ]
   },
   "env": {

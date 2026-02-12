@@ -42,6 +42,17 @@ Each scene MUST include:
 - Visual descriptions must be detailed enough for a motion designer to produce without questions
 - Use varied visual techniques: split-screen, zoom, text overlays, image sequences
 
+## Image Generation
+
+Use `image_prompt` parameter when calling `add_scene()`. The engine generates images automatically via Nano Banana Pro with project visual direction applied.
+
+- **Target**: 6-8 images per video (one per scene)
+- **Write prompts in English** -- visual direction handles style automatically
+- **Use `image_prompt` on**: `add_scene(image_prompt=...)` for each scene
+- If image generation fails, STOP and ask the user what to do
+
+For full image API details: `.claude/skills/storyboard-templates/references/image-gen.md`
+
 ## Engine API
 
 The storyboard-templates skill (preloaded) provides engine API overview.

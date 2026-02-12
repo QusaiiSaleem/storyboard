@@ -62,6 +62,10 @@ from docx.enum.section import WD_ORIENT
 from docx.oxml.ns import qn, nsdecls
 from docx.oxml import parse_xml
 
+# Import image generation for optional image embedding in DOCX documents.
+# Builders can generate images on-the-fly via generate_storyboard_image().
+from engine.image_gen import generate_storyboard_image
+
 # Import RTL workaround functions from the shared helpers module.
 # These handle the XML-level manipulations that python-docx doesn't
 # natively support for Arabic RTL text.
@@ -566,6 +570,73 @@ def _write_cell(cell, text, font_name=FONT_BODY, font_size_pt=None,
 
 
 # =============================================================================
+# IMAGE HELPERS — shared functions for embedding images in table cells
+# =============================================================================
+
+def _add_image_to_cell(cell, image_path, width_cm=8, height_cm=5):
+    """
+    Add an image to a DOCX table cell.
+
+    Inserts a centered image into the cell. Used by all builders that
+    support image embedding (hero images, per-scene images, etc.).
+
+    Args:
+        cell: python-docx table cell.
+        image_path: Absolute path to image file.
+        width_cm: Image width in centimeters.
+        height_cm: Image height in centimeters.
+
+    Returns:
+        True if image was added successfully, False otherwise.
+    """
+    try:
+        from pathlib import Path
+        if not image_path or not Path(image_path).exists():
+            return False
+
+        paragraph = cell.add_paragraph()
+        paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        _set_paragraph_bidi(paragraph)
+        run = paragraph.add_run()
+        run.add_picture(image_path, width=Cm(width_cm), height=Cm(height_cm))
+        return True
+    except Exception:
+        return False
+
+
+def _generate_image_for_doc(prompt, project_code, unit_number, image_type="hero",
+                            topic_key=None):
+    """
+    Generate an image using the project's visual direction.
+
+    Wraps generate_storyboard_image() from image_gen.py with a simpler
+    interface for use inside DOCX builders.
+
+    Args:
+        prompt: Description of the image to generate.
+        project_code: Project identifier (e.g. "NJR01").
+        unit_number: Unit number (e.g. 2).
+        image_type: Image type for aspect ratio lookup (default "hero").
+        topic_key: Cache key for deduplication (e.g. "design_thinking").
+
+    Returns:
+        Absolute path string if image generated/cached, None on failure.
+    """
+    if not prompt or not project_code:
+        return None
+    result = generate_storyboard_image(
+        prompt=prompt,
+        project_code=project_code,
+        unit_number=unit_number or 1,
+        image_type=image_type,
+        topic_key=topic_key,
+    )
+    if result["success"]:
+        return result["path"]
+    return None
+
+
+# =============================================================================
 # BASE CLASS — DocxBuilder
 # =============================================================================
 
@@ -1048,6 +1119,9 @@ class _GroupABuilder(DocxBuilder):
         super().__init__(*args, **kwargs)
         # Storage for content values (parallel to CONTENT_TABLE_ROWS)
         self._content_values = [""] * len(self.CONTENT_TABLE_ROWS)
+        # Optional image for the screen description cell (row 1, col 1)
+        self._image_path = None
+        self._image_prompt = None
 
     def set_screen_description(self, value):
         """Set the screen/infographic visual description (row 1)."""
@@ -1064,6 +1138,17 @@ class _GroupABuilder(DocxBuilder):
     def set_detailed_description(self, value):
         """Set the detailed screen description (row 4)."""
         self._content_values[3] = value
+
+    def set_image(self, image_path=None, image_prompt=None):
+        """
+        Set an image for the screen description cell (row 1).
+
+        Args:
+            image_path: Path to an existing image file. If provided, used directly.
+            image_prompt: Text prompt to generate an image. Only used if image_path is None.
+        """
+        self._image_path = image_path
+        self._image_prompt = image_prompt
 
     def build_content(self):
         """Build the Group A content table."""
@@ -1116,6 +1201,17 @@ class _GroupABuilder(DocxBuilder):
                 vertical_alignment=None,
                 line_spacing=360,  # 1.5x line spacing for content readability
             )
+
+            # Row 1 (i==0) is the "screen description" cell — embed image here
+            if i == 0:
+                img_path = self._image_path
+                if self._image_prompt and not img_path:
+                    img_path = _generate_image_for_doc(
+                        self._image_prompt, self.project_code,
+                        self.unit_number, image_type="hero",
+                    )
+                if img_path:
+                    _add_image_to_cell(cell1, img_path, width_cm=10, height_cm=7)
 
         return table
 
@@ -1231,6 +1327,9 @@ class _GroupBBuilder(DocxBuilder):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._content_values = {}
+        # Optional hero image for the screen description cell (row 1, col 1)
+        self._image_path = None
+        self._image_prompt = None
 
     def set_content(self, label_key, value):
         """
@@ -1257,6 +1356,17 @@ class _GroupBBuilder(DocxBuilder):
     def set_related_objectives(self, value):
         """Set related learning objectives (row 4)."""
         self._content_values[self.CONTENT_ROW_LABELS[3]] = value
+
+    def set_image(self, image_path=None, image_prompt=None):
+        """
+        Set a hero image for the screen description cell (row 1).
+
+        Args:
+            image_path: Path to an existing image file. If provided, used directly.
+            image_prompt: Text prompt to generate an image. Only used if image_path is None.
+        """
+        self._image_path = image_path
+        self._image_prompt = image_prompt
 
     def build_content(self):
         """Build the Group B content table."""
@@ -1306,6 +1416,17 @@ class _GroupBBuilder(DocxBuilder):
                 alignment=content_align,
                 line_spacing=360,  # 1.5x line spacing for content readability
             )
+
+            # Row 1 (i==0) is the "screen description" cell — embed hero image here
+            if i == 0:
+                img_path = self._image_path
+                if self._image_prompt and not img_path:
+                    img_path = _generate_image_for_doc(
+                        self._image_prompt, self.project_code,
+                        self.unit_number, image_type="hero",
+                    )
+                if img_path:
+                    _add_image_to_cell(cell1, img_path, width_cm=20, height_cm=10)
 
         return table
 
@@ -1429,6 +1550,20 @@ class TestBuilder(DocxBuilder):
         self._test_description = ""
         self._test_instructions = ""
         self._questions = []
+        # Optional hero image displayed between info table and questions table
+        self._image_path = None
+        self._image_prompt = None
+
+    def set_image(self, image_path=None, image_prompt=None):
+        """
+        Set a hero image for the test (displayed before the questions table).
+
+        Args:
+            image_path: Path to an existing image file. If provided, used directly.
+            image_prompt: Text prompt to generate an image. Only used if image_path is None.
+        """
+        self._image_path = image_path
+        self._image_prompt = image_prompt
 
     def set_test_info(self, description, instructions):
         """
@@ -1460,9 +1595,27 @@ class TestBuilder(DocxBuilder):
         })
 
     def build_content(self):
-        """Build the test info table and questions table."""
+        """Build the test info table, optional hero image, and questions table."""
         self._build_test_info_table()
         self.doc.add_paragraph()  # spacer
+
+        # Insert hero image between info and questions tables (if provided)
+        img_path = self._image_path
+        if self._image_prompt and not img_path:
+            img_path = _generate_image_for_doc(
+                self._image_prompt, self.project_code,
+                self.unit_number, image_type="hero",
+            )
+        if img_path:
+            # Create a single-cell table to hold the hero image
+            img_table = self.doc.add_table(rows=1, cols=1)
+            _set_table_bidi(img_table)
+            _set_table_borders(img_table, outer_sz=0, inner_sz=0,
+                               outer_color="FFFFFF", inner_color="FFFFFF")
+            img_cell = img_table.cell(0, 0)
+            _add_image_to_cell(img_cell, img_path, width_cm=20, height_cm=10)
+            self.doc.add_paragraph()  # spacer after image
+
         self._build_questions_table()
 
     def _build_test_info_table(self):
@@ -1693,7 +1846,8 @@ class ActivityBuilder(DocxBuilder):
     def add_scene(self, title, description="", elements="",
                   image_desc="-", motion_desc="-", sound_effects="-",
                   on_screen_text="", steps="", correct_answer="",
-                  buttons='زر "مراجعة المحتوى"\nزر "أعد المحاولة"'):
+                  buttons='زر "مراجعة المحتوى"\nزر "أعد المحاولة"',
+                  image_path=None, image_prompt=None):
         """
         Add a scene to the activity.
 
@@ -1708,6 +1862,8 @@ class ActivityBuilder(DocxBuilder):
             steps: Activity steps.
             correct_answer: Correct answer text.
             buttons: Buttons shown after attempts exhausted.
+            image_path: Path to an existing image for this scene. Optional.
+            image_prompt: Prompt to generate an image for this scene. Optional.
         """
         self._scenes.append({
             "title": title,
@@ -1720,6 +1876,8 @@ class ActivityBuilder(DocxBuilder):
             "steps": steps,
             "correct_answer": correct_answer,
             "buttons": buttons,
+            "image_path": image_path,
+            "image_prompt": image_prompt,
         })
 
     def build_content(self):
@@ -1822,6 +1980,18 @@ class ActivityBuilder(DocxBuilder):
                 vertical_alignment=None,
                 line_spacing=360,  # 1.5x for content readability
             )
+
+        # Add per-scene image after the scene table content (in "elements" cell row 2 col 1)
+        img_path = scene.get("image_path")
+        if scene.get("image_prompt") and not img_path:
+            img_path = _generate_image_for_doc(
+                scene["image_prompt"], self.project_code,
+                self.unit_number, image_type="step",
+            )
+        if img_path:
+            # Insert image into the elements cell (row 2, col 1)
+            elements_cell = table.cell(2, 1)
+            _add_image_to_cell(elements_cell, img_path, width_cm=8, height_cm=6)
 
         return table
 
@@ -1976,7 +2146,7 @@ class VideoBuilder(DocxBuilder):
         return table
 
     def add_scene(self, title, screen_description="", sound_effects="",
-                  narration_segments=None):
+                  narration_segments=None, image_path=None, image_prompt=None):
         """
         Add a scene to the video storyboard.
 
@@ -1994,6 +2164,8 @@ class VideoBuilder(DocxBuilder):
                 - "on_screen_text": Text shown on screen
                 - "scene_description": Detailed scene description
                 - "image_links": Image source links/descriptions
+            image_path: Path to an existing image for this scene. Optional.
+            image_prompt: Prompt to generate an image for this scene. Optional.
 
         Example narration_segments:
             [
@@ -2020,6 +2192,8 @@ class VideoBuilder(DocxBuilder):
             "screen_description": screen_description,
             "sound_effects": sound_effects,
             "segments": narration_segments,
+            "image_path": image_path,
+            "image_prompt": image_prompt,
         })
 
     def build_content(self):
@@ -2081,6 +2255,16 @@ class VideoBuilder(DocxBuilder):
             color_hex=COLOR_BLACK,
             alignment=WD_ALIGN_PARAGRAPH.RIGHT,
         )
+
+        # Add per-scene image in the screen description cell (row 1, merged cols 1-3)
+        img_path = scene.get("image_path")
+        if scene.get("image_prompt") and not img_path:
+            img_path = _generate_image_for_doc(
+                scene["image_prompt"], self.project_code,
+                self.unit_number, image_type="scene",
+            )
+        if img_path:
+            _add_image_to_cell(merged_cell, img_path, width_cm=15, height_cm=8)
 
         # Row 2: Sound effects (col 0 = label, cols 1-3 merged)
         cell0 = table.cell(2, 0)

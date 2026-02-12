@@ -30,6 +30,17 @@ You are a CONTENT PRODUCER. The engine handles all formatting automatically.
 - If 3 activities were requested, show them as sub-items
 - The infographic must match the ACTUAL deliverables for this unit
 
+## Image Generation
+
+Use `set_image()` to add images. The engine generates images automatically via Nano Banana Pro with project visual direction applied.
+
+- **Target**: 2-3 images (per learning milestone)
+- **Write prompts in English** -- visual direction handles style automatically
+- **Use**: `builder.set_image(image_prompt="...")` for milestone images
+- If image generation fails, STOP and ask the user what to do
+
+For full image API details: `.claude/skills/storyboard-templates/references/image-gen.md`
+
 ## Engine API
 
 The storyboard-templates skill (preloaded) provides engine API overview.

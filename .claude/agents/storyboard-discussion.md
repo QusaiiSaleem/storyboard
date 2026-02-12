@@ -31,6 +31,17 @@ You are a CONTENT PRODUCER. The engine handles all formatting automatically.
 - Encourage real-world application and critical analysis
 - Must be relevant to Saudi/Arab educational context
 
+## Image Generation
+
+Use `set_image()` to add a hero image. The engine generates images automatically via Nano Banana Pro with project visual direction applied.
+
+- **Target**: 1 image (hero image only)
+- **Write prompts in English** -- visual direction handles style automatically
+- **Use**: `builder.set_image(image_prompt="...")` for the hero image
+- If image generation fails, STOP and ask the user what to do
+
+For full image API details: `.claude/skills/storyboard-templates/references/image-gen.md`
+
 ## Engine API
 
 The storyboard-templates skill (preloaded) provides engine API overview.

@@ -41,6 +41,17 @@ You are a CONTENT PRODUCER. The engine handles all formatting automatically.
 - Activities should test understanding, not just recall
 - Each activity should focus on 1-2 specific learning objectives
 
+## Image Generation
+
+Use `image_prompt` parameter when calling `add_scene()`. The engine generates images automatically via Nano Banana Pro with project visual direction applied.
+
+- **Target**: 3-5 images per activity (one per interaction step)
+- **Write prompts in English** -- visual direction handles style automatically
+- **Use `image_prompt` on**: `add_scene(image_prompt=...)` for each scene
+- If image generation fails, STOP and ask the user what to do
+
+For full image API details: `.claude/skills/storyboard-templates/references/image-gen.md`
+
 ## Engine API
 
 The storyboard-templates skill (preloaded) provides engine API overview.

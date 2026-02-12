@@ -123,6 +123,21 @@ Read project config from `projects/[project-code]/config.json` to populate build
 }
 ```
 
+## Image Generation
+
+All builders support AI image generation via `image_prompt` parameter. The engine calls `generate_storyboard_image()` internally (Nano Banana Pro / Gemini 3 Pro) with project visual direction auto-applied from `projects/[code]/config.json` -> `visualDirection`. Priority: `image_path` > `image_prompt` (existing file wins). Write prompts in English; cultural rules are enforced automatically.
+
+For full API, caching, density guidelines, and per-builder usage: See [references/image-gen.md](references/image-gen.md)
+
+## Storyline 360 Compatibility (PPTX)
+
+The PPTX engine is Storyline-import-ready:
+- Hidden TOC titles on every slide (Storyline sidebar shows Arabic titles)
+- No page numbers (Storyline's player handles navigation)
+- Import instructions in title slide speaker notes (fonts, setup, QA checklist)
+- Named shapes (`btn_*`, `opt_*`, `txt_*`) for easy trigger setup
+- Target story size: 1280x720px
+
 ## RTL Notes (for debugging)
 
 The engine handles RTL automatically. Key internals:

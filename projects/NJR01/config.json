@@ -34,5 +34,25 @@
     "preTestQuestions": "3-5",
     "postTestQuestions": "7-10",
     "courseExamQuestions": null
+  },
+  "visualDirection": {
+    "style": "vector-flat",
+    "colorPalette": ["#2D588C", "#156082", "#009688", "#FF9800"],
+    "negativeRules": [
+      "no human faces or facial features",
+      "no female characters",
+      "no Arabic text or writing inside images",
+      "no photorealistic style",
+      "no gradients or shadows in illustrations"
+    ],
+    "promptSuffix": "flat vector illustration, clean geometric shapes, educational context, muted professional colors, Saudi Arabian university setting",
+    "defaultAspectRatios": {
+      "content_slide": "1:1",
+      "card_thumbnail": "1:1",
+      "section_bg": "1:1",
+      "two_column_header": "3:2",
+      "closing": "16:9",
+      "quiz": "1:1"
+    }
   }
 }

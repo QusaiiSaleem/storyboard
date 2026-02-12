@@ -46,6 +46,7 @@ These three share an identical infographic-style content table.
 | `set_content_text(value)` | `value: str` | Main content text (row 2) |
 | `set_image_sources(value)` | `value: str` | Image sources/credits (row 3) |
 | `set_detailed_description(value)` | `value: str` | Detailed screen description (row 4) |
+| `set_image(image_path, image_prompt)` | `image_path: str`, `image_prompt: str` | Set hero image. Use `image_prompt` for AI generation, or `image_path` for existing file. Priority: image_path > image_prompt |
 
 ### ObjectivesBuilder
 
@@ -133,6 +134,7 @@ These two share a card-style content table.
 | `set_content_text(value)` | `value: str` | Main content text (row 2) |
 | `set_instructions(value)` | `value: str` | Instructions/guidelines (row 3) |
 | `set_related_objectives(value)` | `value: str` | Related learning objectives (row 4) |
+| `set_image(image_path, image_prompt)` | `image_path: str`, `image_prompt: str` | Set hero image. Use `image_prompt` for AI generation, or `image_path` for existing file. Priority: image_path > image_prompt |
 
 ### DiscussionBuilder
 
@@ -191,6 +193,7 @@ Used for: Pre-Test, Post-Test, Course Exam
 | Method | Parameters | Description |
 |--------|-----------|-------------|
 | `set_test_info(description, instructions)` | `description: str, instructions: str` | Test description and instructions |
+| `set_image(image_path, image_prompt)` | `image_path: str`, `image_prompt: str` | Set hero image. Use `image_prompt` for AI generation, or `image_path` for existing file. Priority: image_path > image_prompt |
 | `add_question(question_text, choices, correct_answer, image_description)` | See below | Add one question. Call multiple times. |
 
 **add_question parameters:**
@@ -247,6 +250,8 @@ Used for: Interactive Activity (نشاط تفاعلي). Each activity has one or
 - `steps: str` -- Activity steps
 - `correct_answer: str` -- Correct answer text
 - `buttons: str` -- Buttons after attempts (default: 'زر "مراجعة المحتوى"\nزر "أعد المحاولة"')
+- `image_path: str` -- Path to existing image file (optional)
+- `image_prompt: str` -- AI image generation prompt (English, optional). Used if no image_path
 
 ```python
 from engine.docx_engine import ActivityBuilder
@@ -296,6 +301,8 @@ Used for: Motion Video (فيديو موشن). Has a 6-row metadata table. Each v
   - `"on_screen_text"` -- Text shown on screen
   - `"scene_description"` -- Detailed scene description with sync timing
   - `"image_links"` -- Image source links/descriptions
+- `image_path: str` -- Path to existing image file (optional)
+- `image_prompt: str` -- AI image generation prompt (English, optional). Used if no image_path
 
 ```python
 from engine.docx_engine import VideoBuilder

@@ -40,11 +40,14 @@ import os
 from datetime import datetime
 from typing import Optional
 
+from PIL import Image as PILImage  # For reading image dimensions (aspect ratio)
+
 from pptx import Presentation
 from pptx.util import Inches, Pt, Cm, Emu
 from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN, MSO_AUTO_SIZE, MSO_ANCHOR
 from pptx.enum.shapes import MSO_SHAPE
+from pptx.enum.dml import MSO_LINE_DASH_STYLE
 
 # Shared RTL helpers — critical workarounds for Arabic text in python-pptx.
 # These functions handle XML-level operations that python-pptx doesn't
@@ -54,6 +57,10 @@ from engine.rtl_helpers import (
     pptx_set_paragraph_ltr,
     pptx_set_run_font_arabic,
 )
+
+# Image generation — auto-generates images when agent provides a prompt
+# but no pre-existing image file. Falls back gracefully if API key missing.
+from engine.image_gen import generate_storyboard_image
 
 
 # ---------------------------------------------------------------------------
@@ -98,6 +105,14 @@ DIVIDER_BG = RGBColor(0x2D, 0x58, 0x8C)          # Section divider background
 BULLET_MARKER_COLOR = RGBColor(0x2D, 0x58, 0x8C) # Blue bullet circles
 SHADOW_COLOR = RGBColor(0xE0, 0xE0, 0xE0)        # Lighter shadow color
 
+# Extended palette — tints and shades for visual depth
+PRIMARY_BLUE_LIGHT = RGBColor(0x4A, 0x7A, 0xAE)    # Lighter tint of primary
+PRIMARY_BLUE_DARK = RGBColor(0x1E, 0x3D, 0x63)      # Darker shade for depth
+TEAL_LIGHT = RGBColor(0x4D, 0xBF, 0xB3)             # Lighter teal
+WARM_GRAY = RGBColor(0x6B, 0x6B, 0x6B)              # Secondary text color
+ACCENT_DEFINITION = RGBColor(0x00, 0x96, 0x88)       # Teal for definitions
+ACCENT_EXAMPLE = RGBColor(0xFF, 0x98, 0x00)          # Orange for examples
+
 # Header bar color — a slightly darker blue for the top banner
 HEADER_BAR_BLUE = RGBColor(0x2D, 0x58, 0x8C)
 
@@ -109,9 +124,18 @@ ASSET_TARGET_ICON = "target_icon.png"       # Target/circle icon at end of objec
 ASSET_PLAY_ICON = "play_icon.png"           # Play button triangle icon (title slide)
 ASSET_HAND_CURSOR = "hand_cursor.png"       # Hand cursor icon (title slide)
 
+# Additional template assets — decorative elements for visual variety
+ASSET_CORNER_TR = "corner_tr.png"          # Decorative corner, top-right
+ASSET_CORNER_BL = "corner_bl.png"          # Decorative corner, bottom-left
+ASSET_TEXT_BUBBLE = "text_bubble.png"       # Speech/thought bubble shape
+ASSET_IMAGE_FRAME = "image_frame.png"      # Frame for image placeholders
+ASSET_CONTENT_BG = "content_bg.png"        # Subtle texture background
+
 # Font names — Tajawal is the primary font from the template.
 # We set it on cs_font (Complex Script) for Arabic rendering,
 # and also on latin_font and ea_font for consistency.
+# STORYLINE REQUIREMENT: Developer must install Tajawal fonts
+# before importing. Download: https://fonts.google.com/specimen/Tajawal
 FONT_EXTRABOLD = "Tajawal ExtraBold"
 FONT_MEDIUM = "Tajawal Medium"
 FONT_REGULAR = "Tajawal"
@@ -149,12 +173,6 @@ NARROW_BANNER_TEXT_LEFT = 4947367
 NARROW_BANNER_TEXT_TOP = 1035917
 NARROW_BANNER_TEXT_WIDTH = 2297266
 NARROW_BANNER_TEXT_HEIGHT = 369332
-
-# Page number — bottom left corner
-PAGE_NUM_LEFT = 920559
-PAGE_NUM_TOP = 6384932
-PAGE_NUM_WIDTH = 327098
-PAGE_NUM_HEIGHT = 400110
 
 # Content area — main body region for text
 CONTENT_LEFT = 900000       # ~2.5cm from left
@@ -278,6 +296,9 @@ class LectureBuilder:
         # Track slide count for automatic page numbering
         self.slide_count = 0
 
+        # Layout variant cycle for content slides (0=A, 1=B, 2=C)
+        self._content_layout_cycle = 0
+
     # -----------------------------------------------------------------------
     # PUBLIC METHODS — Each adds one slide type
     # -----------------------------------------------------------------------
@@ -326,6 +347,9 @@ class LectureBuilder:
 
         # Use Layout 0 ("Title Slide") — has background image, logo, etc.
         slide = self._add_slide_with_layout(0)
+
+        # Set hidden TOC title for Storyline sidebar menu
+        self._set_slide_title_for_toc(slide, title)
 
         # --- Institution name ---
         # Positioned in the right-center area (RTL layout puts content on right)
@@ -426,6 +450,9 @@ class LectureBuilder:
             )
             pic.name = "icon_hand"
 
+        # Add Storyline import instructions as speaker notes
+        self._add_notes(slide, self._build_import_instructions(title))
+
     def add_objectives_slide(self, objectives: list):
         """
         Add a Learning Objectives slide (matches template slide 2).
@@ -459,6 +486,9 @@ class LectureBuilder:
         """
         self.slide_count += 1
         slide = self._add_content_slide_with_layout()
+
+        # Set hidden TOC title for Storyline sidebar menu
+        self._set_slide_title_for_toc(slide, "الأهداف التعليمية")
 
         # --- Lecture title bar at top ---
         self._add_header_bar(slide, self.lecture_title)
@@ -568,15 +598,14 @@ class LectureBuilder:
                 name=f"txt_obj_{obj_num}",
             )
 
-        # --- Page number ---
-        self._add_slide_number(slide, self.slide_count)
-
     def add_content_slide(
         self,
         title: str,
         bullets: Optional[list] = None,
         paragraphs: Optional[list] = None,
         image_placeholder: Optional[str] = None,
+        image_path: Optional[str] = None,
+        image_prompt: Optional[str] = None,
         notes: str = "",
     ):
         """
@@ -590,7 +619,9 @@ class LectureBuilder:
             title: Section title (e.g., "المقدمة")
             bullets: List of bullet point strings (use this OR paragraphs)
             paragraphs: List of paragraph strings (use this OR bullets)
-            image_placeholder: Optional text describing what image to add
+            image_placeholder: Optional text describing what image to add (gray box)
+            image_path: Optional path to a real image file (PNG/JPG). Takes
+                        priority over image_placeholder if both are given.
             notes: Speaker notes / Storyline instructions (added to slide notes)
 
         Visual output (ASCII mockup):
@@ -612,11 +643,14 @@ class LectureBuilder:
             ...         "أصبحت التقنية الرقمية جزءاً من حياتنا",
             ...         "تؤثر على جميع المجالات",
             ...     ],
-            ...     notes="رابط الصور: https://example.com/image.png"
+            ...     image_path="output/NJR01/U02/images/intro.png",
             ... )
         """
         self.slide_count += 1
         slide = self._add_content_slide_with_layout()
+
+        # Set hidden TOC title for Storyline sidebar menu
+        self._set_slide_title_for_toc(slide, title)
 
         # --- Lecture title bar at top ---
         self._add_header_bar(slide, self.lecture_title)
@@ -624,9 +658,24 @@ class LectureBuilder:
         # --- Section banner ---
         self._add_section_banner(slide, title)
 
-        # --- Image placeholder area (left side) ---
-        if image_placeholder:
-            # Gray placeholder rectangle on the left
+        # --- Image area (left side) ---
+        # Priority: real image > auto-generated > gray placeholder > no image
+        # Auto-generate image if prompt provided but no path
+        if image_prompt and not image_path:
+            image_path = self._generate_image_for_slide(image_prompt, "content")
+        has_image = False
+
+        if image_path and os.path.exists(image_path):
+            # Real image — add it with aspect ratio preservation
+            self._add_image(
+                slide, image_path,
+                left=Cm(2.5), top=Cm(5.5),
+                max_width=Cm(9), max_height=Cm(9),
+                name="img_content",
+            )
+            has_image = True
+        elif image_placeholder:
+            # Fallback: gray placeholder rectangle with text label
             img_shape = self._add_shape(
                 slide,
                 MSO_SHAPE.ROUNDED_RECTANGLE,
@@ -637,7 +686,6 @@ class LectureBuilder:
                 fill_color=RGBColor(0xE0, 0xE0, 0xE0),
                 border_color=RGBColor(0xBD, 0xBD, 0xBD),
             )
-            # Label inside the placeholder
             tf = img_shape.text_frame
             tf.word_wrap = True
             p = tf.paragraphs[0]
@@ -645,80 +693,93 @@ class LectureBuilder:
             run = p.add_run()
             run.text = image_placeholder
             self._set_run_font(run, FONT_REGULAR, Pt(12), False, BODY_TEXT)
+            has_image = True
 
-            # Content goes to the right of the image
+        # --- Content body (with layout variants for visual variety) ---
+        variant = self._content_layout_cycle % 3
+        self._content_layout_cycle += 1
+
+        content_top = Cm(5)
+        content_height = Cm(11.5)
+
+        if has_image:
+            # Image mode — always use Variant A (full-width card) since layout is already varied
+            variant = 0
             content_left = Cm(13)
             content_width = Cm(18)
         else:
-            # No image — content spans the full width
             content_left = Cm(3)
             content_width = Cm(28)
 
-        # --- Content body ---
-        content_top = Cm(5)
-        content_height = Cm(11.5)  # Extended to use more slide height
+        if variant == 1 and not has_image:
+            # --- Variant B: Accent stripe on right, narrower content ---
+            self._add_accent_stripe(slide)
+            content_width = Cm(26)  # Slightly narrower to make room for stripe
 
-        if bullets:
-            # Add a light content card behind the bullets for visual structure
-            self._add_shape(
-                slide,
-                MSO_SHAPE.ROUNDED_RECTANGLE,
-                left=content_left - Cm(0.5),
-                top=content_top - Cm(0.3),
-                width=content_width + Cm(1),
-                height=content_height + Cm(0.6),
-                fill_color=CONTENT_CARD_BG,
-                border_color=CONTENT_CARD_BORDER,
-                border_width=Pt(1),
-                name="bg_content_card",
-            )
+        if variant == 2 and bullets and not has_image:
+            # --- Variant C: Numbered points instead of bullet list ---
+            self._add_numbered_points(slide, bullets, start_top=content_top + Cm(0.5))
+        else:
+            # --- Variant A or B: Card with bullets/paragraphs ---
+            if bullets:
+                card_shape = self._add_shape(
+                    slide,
+                    MSO_SHAPE.ROUNDED_RECTANGLE,
+                    left=content_left - Cm(0.5),
+                    top=content_top - Cm(0.3),
+                    width=content_width + Cm(1),
+                    height=content_height + Cm(0.6),
+                    fill_color=CONTENT_CARD_BG,
+                    border_color=CONTENT_CARD_BORDER,
+                    border_width=Pt(1),
+                    name="bg_content_card",
+                    corner_radius=0.04,
+                )
+                self._add_shadow_to_shape(card_shape, blur_pt=4, opacity_pct=15)
 
-            self._add_bullet_list(
-                slide,
-                left=content_left,
-                top=content_top,
-                width=content_width,
-                height=content_height,
-                items=bullets,
-                font_size=Pt(20),  # Increased for better readability
-                name="txt_body",
-            )
-        elif paragraphs:
-            # Add a light content card behind paragraphs for visual structure
-            self._add_shape(
-                slide,
-                MSO_SHAPE.ROUNDED_RECTANGLE,
-                left=content_left - Cm(0.5),
-                top=content_top - Cm(0.3),
-                width=content_width + Cm(1),
-                height=content_height + Cm(0.6),
-                fill_color=CONTENT_CARD_BG,
-                border_color=CONTENT_CARD_BORDER,
-                border_width=Pt(1),
-                name="bg_content_card",
-            )
+                self._add_bullet_list(
+                    slide,
+                    left=content_left,
+                    top=content_top,
+                    width=content_width,
+                    height=content_height,
+                    items=bullets,
+                    font_size=Pt(20),
+                    name="txt_body",
+                )
+            elif paragraphs:
+                card_shape = self._add_shape(
+                    slide,
+                    MSO_SHAPE.ROUNDED_RECTANGLE,
+                    left=content_left - Cm(0.5),
+                    top=content_top - Cm(0.3),
+                    width=content_width + Cm(1),
+                    height=content_height + Cm(0.6),
+                    fill_color=CONTENT_CARD_BG,
+                    border_color=CONTENT_CARD_BORDER,
+                    border_width=Pt(1),
+                    name="bg_content_card",
+                    corner_radius=0.04,
+                )
+                self._add_shadow_to_shape(card_shape, blur_pt=4, opacity_pct=15)
 
-            # Join paragraphs with newlines for a single text box
-            text = "\n\n".join(paragraphs)
-            self._add_arabic_textbox(
-                slide,
-                left=content_left,
-                top=content_top,
-                width=content_width,
-                height=content_height,
-                text=text,
-                font_name=FONT_REGULAR,
-                font_size=Pt(18),  # QM minimum 18px
-                bold=False,
-                color=BODY_TEXT,
-                alignment=PP_ALIGN.RIGHT,
-                word_wrap=True,
-                auto_size=MSO_AUTO_SIZE.NONE,
-                name="txt_body",
-            )
-
-        # --- Page number ---
-        self._add_slide_number(slide, self.slide_count)
+                text = "\n\n".join(paragraphs)
+                self._add_arabic_textbox(
+                    slide,
+                    left=content_left,
+                    top=content_top,
+                    width=content_width,
+                    height=content_height,
+                    text=text,
+                    font_name=FONT_REGULAR,
+                    font_size=Pt(18),
+                    bold=False,
+                    color=BODY_TEXT,
+                    alignment=PP_ALIGN.RIGHT,
+                    word_wrap=True,
+                    auto_size=MSO_AUTO_SIZE.NONE,
+                    name="txt_body",
+                )
 
         # --- Speaker notes ---
         if notes:
@@ -742,6 +803,7 @@ class LectureBuilder:
                    - "title": Card title text
                    - "body": Card body text (optional)
                    - "color": RGBColor for the card (optional, auto-assigned)
+                   - "image": Path to thumbnail image file (optional)
             notes: Speaker notes / Storyline instructions
 
         Visual output (ASCII mockup):
@@ -769,6 +831,9 @@ class LectureBuilder:
         """
         self.slide_count += 1
         slide = self._add_content_slide_with_layout()
+
+        # Set hidden TOC title for Storyline sidebar menu
+        self._set_slide_title_for_toc(slide, title)
 
         # --- Lecture title bar ---
         self._add_header_bar(slide, self.lecture_title)
@@ -800,17 +865,6 @@ class LectureBuilder:
             card_left = int(cards_area_left + i * (card_width + gap))
             card_color = card_data.get("color", default_colors[i % len(default_colors)])
 
-            # Card shadow (offset rectangle behind card — lighter for subtlety)
-            self._add_shape(
-                slide,
-                MSO_SHAPE.ROUNDED_RECTANGLE,
-                left=card_left + Cm(0.1),
-                top=cards_top + Cm(0.1),
-                width=card_width,
-                height=card_height,
-                fill_color=SHADOW_COLOR,
-            )
-
             # Card background rectangle — light tinted fill instead of pure white
             card_shape = self._add_shape(
                 slide,
@@ -824,6 +878,8 @@ class LectureBuilder:
                 border_width=Pt(2),
                 name=f"card_{card_num}",
             )
+            # Real shadow effect on card
+            self._add_shadow_to_shape(card_shape)
 
             # Thicker colored accent bar at top of card (Cm(1.2) for visual impact)
             self._add_shape(
@@ -836,11 +892,38 @@ class LectureBuilder:
                 fill_color=card_color,
             )
 
+            # Optional card thumbnail image (below accent bar, above title)
+            # Auto-generate from prompt if no image path provided
+            card_image = card_data.get("image")
+            card_image_prompt = card_data.get("image_prompt")
+            if card_image_prompt and not card_image:
+                card_image = self._generate_image_for_slide(
+                    card_image_prompt, "card",
+                    topic_key=f"card_{i+1}" if not card_data.get("title") else None,
+                )
+            card_has_image = False
+            if card_image:
+                pic = self._add_image(
+                    slide, card_image,
+                    left=card_left + Cm(0.5),
+                    top=cards_top + Cm(1.5),
+                    max_width=card_width - Cm(1),
+                    max_height=Cm(3),
+                    name=f"img_card_{card_num}",
+                )
+                if pic is not None:
+                    card_has_image = True
+
+            # Vertical offset: shift title/body down when image is present
+            title_top = cards_top + Cm(4.8) if card_has_image else cards_top + Cm(1.2)
+            body_top = cards_top + Cm(6.5) if card_has_image else cards_top + Cm(3)
+            body_height = Cm(2.5) if card_has_image else Cm(5.5)
+
             # Card title — Pt(20) for QM compliance, vertically centered
             self._add_arabic_textbox(
                 slide,
                 left=card_left + Cm(0.5),
-                top=cards_top + Cm(1.2),
+                top=title_top,
                 width=card_width - Cm(1),
                 height=Cm(1.5),
                 text=card_data.get("title", ""),
@@ -858,9 +941,9 @@ class LectureBuilder:
                 self._add_arabic_textbox(
                     slide,
                     left=card_left + Cm(0.5),
-                    top=cards_top + Cm(3),
+                    top=body_top,
                     width=card_width - Cm(1),
-                    height=Cm(5.5),
+                    height=body_height,
                     text=body,
                     font_name=FONT_REGULAR,
                     font_size=Pt(18),
@@ -872,9 +955,6 @@ class LectureBuilder:
                     name=f"txt_card_{card_num}_body",
                 )
 
-        # --- Page number ---
-        self._add_slide_number(slide, self.slide_count)
-
         # --- Speaker notes ---
         if notes:
             self._add_notes(slide, notes)
@@ -883,37 +963,55 @@ class LectureBuilder:
         self,
         section_title: str,
         section_subtitle: str = "",
+        section_number: int = None,
+        total_sections: int = None,
+        image_path: Optional[str] = None,
+        image_prompt: Optional[str] = None,
     ):
         """
-        Add a full-color section transition slide.
+        Add a full-color section transition slide with decorative elements.
 
         Used to mark the boundary between major sections of the lecture
         (e.g., transitioning from "Introduction" to "Main Content").
 
+        Enhanced with:
+        - Decorative corner images (top-right, bottom-left) from template assets
+        - Thicker accent bar on the right side (RTL primary side)
+        - Progress dots showing current section position
+        - Optional background illustration
+
         Args:
             section_title: Main section title
             section_subtitle: Optional subtitle text
+            section_number: Current section number (1-based) for progress dots
+            total_sections: Total number of sections for progress dots
+            image_path: Optional path to a subtle background illustration (PNG)
 
         Visual output (ASCII mockup):
             +------------------------------------------+
-            |                                          |
-            |  ████████████████████████████████████████ |
-            |  ██                                  ██  |
-            |  ██      [Section Title]             ██  |
-            |  ██      [Section Subtitle]          ██  |
-            |  ██                                  ██  |
-            |  ████████████████████████████████████████ |
-            |                                          |
+            |                             [corner_tr] █|
+            |  ████████████████████████████████████ █  |
+            |  ██                              ██  █  |
+            |  ██      [Section Title]         ██  █  |
+            |  ██      [Section Subtitle]      ██  █  |
+            |  ██                              ██     |
+            |  ████████████████████████████████████    |
+            | [corner_bl]       ● ● ◉ ● ●            |
             +------------------------------------------+
 
         Example:
             >>> builder.add_section_divider(
             ...     section_title="المحور الثاني",
-            ...     section_subtitle="فوائد التقنية الرقمية"
+            ...     section_subtitle="فوائد التقنية الرقمية",
+            ...     section_number=2,
+            ...     total_sections=5,
             ... )
         """
         self.slide_count += 1
         slide = self._add_content_slide_with_layout()
+
+        # Set hidden TOC title for Storyline sidebar menu
+        self._set_slide_title_for_toc(slide, section_title)
 
         # --- Bold PRIMARY_BLUE background for visual impact ---
         # Full-color rectangle covering most of the slide
@@ -930,11 +1028,51 @@ class LectureBuilder:
             name="bg_divider",
         )
 
-        # --- Section title — large white text, vertically centered ---
+        # --- Subtle depth overlay at bottom edge (darker strip for depth) ---
+        self._add_shape(
+            slide,
+            MSO_SHAPE.RECTANGLE,
+            left=card_margin_h,
+            top=SLIDE_HEIGHT - Cm(4),
+            width=SLIDE_WIDTH - (card_margin_h * 2),
+            height=Cm(2),
+            fill_color=PRIMARY_BLUE_DARK,
+            name="bg_divider_depth",
+        )
+
+        # --- Refined accent bar on the right (RTL primary side) ---
+        self._add_shape(
+            slide,
+            MSO_SHAPE.RECTANGLE,
+            left=SLIDE_WIDTH - Cm(2.5),
+            top=Cm(2),
+            width=Cm(0.3),
+            height=SLIDE_HEIGHT - Cm(4),
+            fill_color=WHITE,
+            name="accent_right_bar",
+        )
+
+        # --- Optional background illustration (behind text, above bg) ---
+        # Auto-generate image if prompt provided but no path
+        if image_prompt and not image_path:
+            image_path = self._generate_image_for_slide(image_prompt, "section")
+        if image_path:
+            self._add_image(
+                slide, image_path,
+                left=Cm(3), top=Cm(3),
+                max_width=Cm(8), max_height=Cm(8),
+                name="img_section_bg",
+            )
+
+        # --- Decorative corners — code-drawn shapes (no blurry PNGs) ---
+        self._add_decorative_corner(slide, "top_right", WHITE, Cm(4))
+        self._add_decorative_corner(slide, "bottom_left", WHITE, Cm(4))
+
+        # --- Section title — large white text, moved up for better balance ---
         title_box = self._add_arabic_textbox(
             slide,
             left=Cm(4),
-            top=Cm(5.5),
+            top=Cm(5),
             width=Cm(26),
             height=Cm(3.5),
             text=section_title,
@@ -947,24 +1085,24 @@ class LectureBuilder:
         )
         title_box.text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
 
-        # --- Thin decorative white line between title and subtitle (wider) ---
+        # --- Thin decorative white line — increased gap below title ---
         self._add_shape(
             slide,
             MSO_SHAPE.RECTANGLE,
             left=Cm(9),
-            top=Cm(9.2),
+            top=Cm(8.7),
             width=Cm(15),
             height=Cm(0.08),
             fill_color=WHITE,
             name="divider_line",
         )
 
-        # --- Section subtitle — white text below the line ---
+        # --- Section subtitle — more room between line and subtitle ---
         if section_subtitle:
             self._add_arabic_textbox(
                 slide,
                 left=Cm(4),
-                top=Cm(9.8),
+                top=Cm(9.3),
                 width=Cm(26),
                 height=Cm(2.5),
                 text=section_subtitle,
@@ -976,8 +1114,31 @@ class LectureBuilder:
                 name="txt_section_subtitle",
             )
 
-        # --- Page number ---
-        self._add_slide_number(slide, self.slide_count)
+        # --- Progress dots showing current section position ---
+        if section_number is not None and total_sections is not None:
+            dot_size = Cm(0.6)
+            dot_gap = Cm(1)
+            total_width = total_sections * dot_size + (total_sections - 1) * dot_gap
+            dots_left = (SLIDE_WIDTH - total_width) // 2
+            dots_top = SLIDE_HEIGHT - Cm(3)
+
+            for i in range(total_sections):
+                dot_left = int(dots_left + i * (dot_size + dot_gap))
+                is_current = (i + 1) == section_number
+                dot_color = WHITE if is_current else RGBColor(0x80, 0x9F, 0xBF)
+                dot_shape_size = Cm(0.8) if is_current else dot_size
+                dot_offset = (dot_shape_size - dot_size) // 2 if is_current else 0
+
+                self._add_shape(
+                    slide,
+                    MSO_SHAPE.OVAL,
+                    left=dot_left - dot_offset,
+                    top=dots_top - dot_offset,
+                    width=dot_shape_size,
+                    height=dot_shape_size,
+                    fill_color=dot_color,
+                    name=f"dot_section_{i + 1}",
+                )
 
     def add_quiz_slide(
         self,
@@ -986,6 +1147,8 @@ class LectureBuilder:
         correct_index: int,
         quiz_number: int = 1,
         total_quizzes: int = 5,
+        image_path: Optional[str] = None,
+        image_prompt: Optional[str] = None,
     ):
         """
         Add an MCQ quiz slide with dark background (matches activity pattern).
@@ -999,6 +1162,7 @@ class LectureBuilder:
             correct_index: Zero-based index of the correct answer
             quiz_number: Which quiz number this is (for display)
             total_quizzes: Total number of quizzes (for display)
+            image_path: Optional illustration next to the question text
 
         Visual output (ASCII mockup):
             +------------------------------------------+
@@ -1029,6 +1193,9 @@ class LectureBuilder:
         self.slide_count += 1
         slide = self._add_content_slide_with_layout()
 
+        # Set hidden TOC title for Storyline sidebar menu
+        self._set_slide_title_for_toc(slide, f"نشاط: {question[:30]}")
+
         # --- Lecture title bar ---
         self._add_header_bar(slide, self.lecture_title)
 
@@ -1036,12 +1203,30 @@ class LectureBuilder:
         activity_title = "نشاط تفاعلي: اختيار من متعدد"
         self._add_section_banner(slide, activity_title, wide=True)
 
+        # --- Optional question illustration (left side) ---
+        # Auto-generate image if prompt provided but no path
+        if image_prompt and not image_path:
+            image_path = self._generate_image_for_slide(image_prompt, "quiz")
+        quiz_has_image = False
+        if image_path:
+            pic = self._add_image(
+                slide, image_path,
+                left=Cm(2), top=Cm(4),
+                max_width=Cm(7), max_height=Cm(5),
+                name="img_quiz",
+            )
+            if pic is not None:
+                quiz_has_image = True
+
         # --- Question text — Pt(24) bold for emphasis ---
+        # Narrower when image is present (shifts right to make room)
+        q_left = Cm(10) if quiz_has_image else Cm(2.5)
+        q_width = Cm(21) if quiz_has_image else Cm(29)
         self._add_arabic_textbox(
             slide,
-            left=Cm(2.5),
+            left=q_left,
             top=Cm(5),
-            width=Cm(29),
+            width=q_width,
             height=Cm(2),
             text=question,
             font_name=FONT_EXTRABOLD,
@@ -1066,9 +1251,9 @@ class LectureBuilder:
             opt_id = ["a", "b", "c", "d"][i] if i < 4 else str(i + 1)
             option_top = int(option_top_start + i * option_spacing)
 
-            # Alternating option backgrounds for visual distinction
+            # Option card with integrated badge (no separate accent border)
             option_bg = CONTENT_CARD_BG if i % 2 == 0 else WHITE
-            self._add_shape(
+            option_bg_shape = self._add_shape(
                 slide,
                 MSO_SHAPE.ROUNDED_RECTANGLE,
                 left=Cm(2.5),
@@ -1079,21 +1264,12 @@ class LectureBuilder:
                 border_color=CONTENT_CARD_BORDER,
                 border_width=Pt(0.5),
                 name=f"bg_opt_{opt_id}",
+                corner_radius=0.06,
             )
+            self._add_shadow_to_shape(option_bg_shape, blur_pt=3, opacity_pct=12)
 
-            # Right-side accent border (RTL — visually on the right)
-            self._add_shape(
-                slide,
-                MSO_SHAPE.RECTANGLE,
-                left=Cm(30.3),
-                top=option_top - Cm(0.1),
-                width=Cm(0.2),
-                height=option_height + Cm(0.2),
-                fill_color=PRIMARY_BLUE,
-            )
-
-            # Letter badge (colored circle with letter) — Cm(1.5) size
-            badge_left = Cm(28)
+            # Letter badge INSIDE the card (right side for RTL)
+            badge_left = Cm(28.5)
             badge_size = Cm(1.5)
             badge = self._add_shape(
                 slide,
@@ -1114,7 +1290,7 @@ class LectureBuilder:
             run.text = opt_letter
             self._set_run_font(run, FONT_EXTRABOLD, Pt(16), False, WHITE)
 
-            # Option text — Pt(20) for better readability
+            # Option text
             self._add_arabic_textbox(
                 slide,
                 left=Cm(3),
@@ -1156,9 +1332,6 @@ class LectureBuilder:
         self._set_rtl(p_btn)
 
         # Feedback instruction moved to notes to avoid edge overflow
-
-        # --- Page number ---
-        self._add_slide_number(slide, self.slide_count)
 
         # --- Structured notes for Storyline import ---
         correct_letter = arabic_letters[correct_index] if correct_index < len(arabic_letters) else str(correct_index + 1)
@@ -1224,6 +1397,9 @@ class LectureBuilder:
         self.slide_count += 1
         slide = self._add_content_slide_with_layout()
 
+        # Set hidden TOC title for Storyline sidebar menu
+        self._set_slide_title_for_toc(slide, "نشاط: سحب وإفلات")
+
         # --- Lecture title bar ---
         self._add_header_bar(slide, self.lecture_title)
 
@@ -1287,17 +1463,6 @@ class LectureBuilder:
             # Stack items vertically
             item_top = int(items_top + i * item_step)
 
-            # Shadow behind draggable item
-            self._add_shape(
-                slide,
-                MSO_SHAPE.ROUNDED_RECTANGLE,
-                left=items_area_left + Cm(0.08),
-                top=item_top + Cm(0.08),
-                width=item_width,
-                height=item_height,
-                fill_color=SHADOW_COLOR,
-            )
-
             item_shape = self._add_shape(
                 slide,
                 MSO_SHAPE.ROUNDED_RECTANGLE,
@@ -1310,6 +1475,8 @@ class LectureBuilder:
                 border_width=Pt(1.5),
                 name=f"drag_item_{i + 1}",
             )
+            # Real shadow effect on drag item
+            self._add_shadow_to_shape(item_shape)
             # Item text — Pt(20) for better readability
             tf = item_shape.text_frame
             tf.word_wrap = True
@@ -1321,6 +1488,24 @@ class LectureBuilder:
             run.text = item_text
             self._set_run_font(run, FONT_REGULAR, Pt(20), False, BODY_TEXT)
             self._set_rtl(p)
+
+            # Grip indicator (shows this item is draggable)
+            self._add_arabic_textbox(
+                slide,
+                left=items_area_left + Cm(0.2),
+                top=item_top + Cm(0.2),
+                width=Cm(1),
+                height=Cm(1),
+                text="\u2630",  # ☰ trigram/hamburger icon
+                font_name=FONT_REGULAR,
+                font_size=Pt(14),
+                bold=False,
+                color=WARM_GRAY,
+                alignment=PP_ALIGN.LEFT,
+                word_wrap=False,
+                auto_size=MSO_AUTO_SIZE.SHAPE_TO_FIT_TEXT,
+                name=f"icon_grip_{i + 1}",
+            )
 
         # --- Numbered drop positions (right side) ---
         drop_left = Cm(18)
@@ -1342,6 +1527,20 @@ class LectureBuilder:
                 border_width=Pt(1.5),
             )
 
+            # Make drop zone border dashed
+            drop_shape.line.dash_style = MSO_LINE_DASH_STYLE.DASH
+
+            # "Drag here" hint text inside drop zone
+            drop_tf = drop_shape.text_frame
+            drop_tf.word_wrap = True
+            drop_tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+            p_hint = drop_tf.paragraphs[0]
+            p_hint.alignment = PP_ALIGN.CENTER
+            run_hint = p_hint.add_run()
+            run_hint.text = "اسحب هنا"
+            self._set_run_font(run_hint, FONT_REGULAR, Pt(14), False, WARM_GRAY)
+            self._set_rtl(p_hint)
+
             # Number badge in the drop zone
             badge_size = Cm(1.5)
             badge = self._add_shape(
@@ -1361,9 +1560,6 @@ class LectureBuilder:
             run_b = p_b.add_run()
             run_b.text = str(i + 1)
             self._set_run_font(run_b, FONT_EXTRABOLD, Pt(16), False, WHITE)
-
-        # --- Page number ---
-        self._add_slide_number(slide, self.slide_count)
 
         # --- Structured notes for Storyline import ---
         mapping_lines = "\n".join(
@@ -1391,6 +1587,10 @@ class LectureBuilder:
         right_title: str,
         right_points: list,
         notes: str = "",
+        right_image: Optional[str] = None,
+        left_image: Optional[str] = None,
+        right_image_prompt: Optional[str] = None,
+        left_image_prompt: Optional[str] = None,
     ):
         """
         Add a two-column comparison slide.
@@ -1405,6 +1605,8 @@ class LectureBuilder:
             right_title: Title for the right column
             right_points: Bullet points for the right column
             notes: Speaker notes
+            right_image: Optional image above the right column header
+            left_image: Optional image above the left column header
 
         Visual output (ASCII mockup):
             +------------------------------------------+
@@ -1434,27 +1636,75 @@ class LectureBuilder:
         self.slide_count += 1
         slide = self._add_content_slide_with_layout()
 
+        # Set hidden TOC title for Storyline sidebar menu
+        self._set_slide_title_for_toc(slide, title)
+
         # --- Lecture title bar ---
         self._add_header_bar(slide, self.lecture_title)
 
         # --- Section banner ---
         self._add_section_banner(slide, title, wide=True)
 
+        # --- Auto-generate column images from prompts ---
+        if right_image_prompt and not right_image:
+            right_image = self._generate_image_for_slide(right_image_prompt, "two_column")
+        if left_image_prompt and not left_image:
+            left_image = self._generate_image_for_slide(left_image_prompt, "two_column")
+
         # --- Column layout ---
         # Right column (primary in RTL) — positioned on the right side
         col_top = Cm(5)
-        col_height = Cm(10)
         col_gap = Cm(1)
         col_width = Cm(13.5)
 
         right_col_left = Cm(17)  # Right side of slide
         left_col_left = Cm(2.5)  # Left side of slide
 
+        # Check if images present — shifts content down
+        right_has_img = right_image and os.path.exists(right_image)
+        left_has_img = left_image and os.path.exists(left_image)
+        any_has_img = right_has_img or left_has_img
+
+        # When images are present, use shorter cards to prevent overflow
+        # Without images: col_top(5) + col_height(10) + padding(0.6) = 15.6cm ✓
+        # With images: col_top(5) + col_height(8) + img_shift(3.5) + padding(0.6) = 17.1cm ✓
+        # Slide height = 19.05cm, so both fit with safe margin
+        col_height = Cm(8) if any_has_img else Cm(10)
+        img_shift = Cm(3.5)  # How much to shift content down for image
+
+        # --- Right column card ---
+        right_card_height = col_height + (img_shift if right_has_img else 0)
+        right_card = self._add_shape(
+            slide,
+            MSO_SHAPE.ROUNDED_RECTANGLE,
+            left=right_col_left - Cm(0.3),
+            top=col_top - Cm(0.3),
+            width=col_width + Cm(0.6),
+            height=right_card_height + Cm(0.6),
+            fill_color=WHITE,
+            border_color=CONTENT_CARD_BORDER,
+            border_width=Pt(1),
+            name="bg_col1_card",
+            corner_radius=0.04,
+        )
+        self._add_shadow_to_shape(right_card, blur_pt=4, opacity_pct=12)
+
+        # Optional right column header image (3cm max for proportional thumbnails)
+        right_content_offset = 0
+        if right_has_img:
+            self._add_image(
+                slide, right_image,
+                left=right_col_left, top=col_top + Cm(0.3),
+                max_width=col_width, max_height=Cm(3),
+                name="img_col1",
+            )
+            right_content_offset = img_shift
+
         # Right column title — Pt(20) bold
         self._add_arabic_textbox(
             slide,
             left=right_col_left,
-            top=col_top,
+            top=col_top + right_content_offset,
             width=col_width,
             height=Cm(1.5),
             text=right_title,
@@ -1471,7 +1721,7 @@ class LectureBuilder:
             slide,
             MSO_SHAPE.RECTANGLE,
             left=right_col_left + Cm(2),
-            top=col_top + Cm(1.5),
+            top=col_top + Cm(1.5) + right_content_offset,
             width=col_width - Cm(4),
             height=Cm(0.15),
             fill_color=PRIMARY_BLUE,
@@ -1481,7 +1731,7 @@ class LectureBuilder:
         self._add_bullet_list(
             slide,
             left=right_col_left,
-            top=col_top + Cm(2),
+            top=col_top + Cm(2) + right_content_offset,
             width=col_width,
             height=col_height - Cm(2),
             items=right_points,
@@ -1489,11 +1739,39 @@ class LectureBuilder:
             name="txt_col1_body",
         )
 
+        # --- Left column card ---
+        left_card_height = col_height + (img_shift if left_has_img else 0)
+        left_card = self._add_shape(
+            slide,
+            MSO_SHAPE.ROUNDED_RECTANGLE,
+            left=left_col_left - Cm(0.3),
+            top=col_top - Cm(0.3),
+            width=col_width + Cm(0.6),
+            height=left_card_height + Cm(0.6),
+            fill_color=WHITE,
+            border_color=CONTENT_CARD_BORDER,
+            border_width=Pt(1),
+            name="bg_col2_card",
+            corner_radius=0.04,
+        )
+        self._add_shadow_to_shape(left_card, blur_pt=4, opacity_pct=12)
+
+        # Optional left column header image (3cm max for proportional thumbnails)
+        left_content_offset = 0
+        if left_has_img:
+            self._add_image(
+                slide, left_image,
+                left=left_col_left, top=col_top + Cm(0.3),
+                max_width=col_width, max_height=Cm(3),
+                name="img_col2",
+            )
+            left_content_offset = img_shift
+
         # Left column title — Pt(20) bold
         self._add_arabic_textbox(
             slide,
             left=left_col_left,
-            top=col_top,
+            top=col_top + left_content_offset,
             width=col_width,
             height=Cm(1.5),
             text=left_title,
@@ -1510,7 +1788,7 @@ class LectureBuilder:
             slide,
             MSO_SHAPE.RECTANGLE,
             left=left_col_left + Cm(2),
-            top=col_top + Cm(1.5),
+            top=col_top + Cm(1.5) + left_content_offset,
             width=col_width - Cm(4),
             height=Cm(0.15),
             fill_color=ACCENT1_BLUE,
@@ -1520,27 +1798,13 @@ class LectureBuilder:
         self._add_bullet_list(
             slide,
             left=left_col_left,
-            top=col_top + Cm(2),
+            top=col_top + Cm(2) + left_content_offset,
             width=col_width,
             height=col_height - Cm(2),
             items=left_points,
             font_size=Pt(18),
             name="txt_col2_body",
         )
-
-        # --- Vertical divider line ---
-        self._add_shape(
-            slide,
-            MSO_SHAPE.RECTANGLE,
-            left=Cm(16.2),
-            top=col_top,
-            width=Cm(0.08),
-            height=col_height,
-            fill_color=RGBColor(0xBD, 0xBD, 0xBD),
-        )
-
-        # --- Page number ---
-        self._add_slide_number(slide, self.slide_count)
 
         if notes:
             self._add_notes(slide, notes)
@@ -1579,6 +1843,9 @@ class LectureBuilder:
         """
         self.slide_count += 1
         slide = self._add_content_slide_with_layout()
+
+        # Set hidden TOC title for Storyline sidebar menu
+        self._set_slide_title_for_toc(slide, "ملخص المحاضرة")
 
         # --- Lecture title bar ---
         self._add_header_bar(slide, self.lecture_title)
@@ -1644,10 +1911,7 @@ class LectureBuilder:
 
             self._set_rtl(p)
 
-        # --- Page number ---
-        self._add_slide_number(slide, self.slide_count)
-
-    def add_closing_slide(self, next_steps: list = None):
+    def add_closing_slide(self, next_steps: list = None, image_path: Optional[str] = None, image_prompt: Optional[str] = None):
         """
         Add the final closing slide with optional next steps.
 
@@ -1656,6 +1920,7 @@ class LectureBuilder:
 
         Args:
             next_steps: Optional list of next step strings
+            image_path: Optional decorative illustration above thank-you text
 
         Visual output (ASCII mockup):
             +------------------------------------------+
@@ -1679,6 +1944,9 @@ class LectureBuilder:
         """
         self.slide_count += 1
         slide = self._add_content_slide_with_layout()
+
+        # Set hidden TOC title for Storyline sidebar menu
+        self._set_slide_title_for_toc(slide, "شكراً لكم")
 
         # --- Full-slide colored background ---
         self._add_shape(
@@ -1704,11 +1972,30 @@ class LectureBuilder:
             name="bg_card",
         )
 
-        # --- Thank you text ---
+        # --- Decorative corner — code-drawn shapes (no blurry PNGs) ---
+        self._add_decorative_corner(slide, "top_right", PRIMARY_BLUE_LIGHT, Cm(3))
+
+        # --- Optional decorative illustration above thank-you text ---
+        # Auto-generate image if prompt provided but no path
+        if image_prompt and not image_path:
+            image_path = self._generate_image_for_slide(image_prompt, "closing")
+        closing_has_image = False
+        if image_path:
+            pic = self._add_image(
+                slide, image_path,
+                left=Cm(9), top=Cm(3.5),
+                max_width=Cm(15), max_height=Cm(5),
+                name="img_closing",
+            )
+            if pic is not None:
+                closing_has_image = True
+
+        # --- Thank you text (shifts down when image present) ---
+        thanks_top = Cm(9) if closing_has_image else Cm(5)
         self._add_arabic_textbox(
             slide,
             left=Cm(5),
-            top=Cm(5),
+            top=thanks_top,
             width=Cm(24),
             height=Cm(2.5),
             text="شكراً لكم",
@@ -1722,6 +2009,18 @@ class LectureBuilder:
 
         # --- Next steps ---
         if next_steps:
+            # Accent line above next steps
+            self._add_shape(
+                slide,
+                MSO_SHAPE.RECTANGLE,
+                left=Cm(10),
+                top=Cm(7.5),
+                width=Cm(14),
+                height=Cm(0.1),
+                fill_color=PRIMARY_BLUE,
+                name="accent_steps_line",
+            )
+
             self._add_arabic_textbox(
                 slide,
                 left=Cm(5),
@@ -1737,20 +2036,47 @@ class LectureBuilder:
                 name="txt_next_steps_label",
             )
 
-            self._add_bullet_list(
-                slide,
-                left=Cm(6),
-                top=Cm(10),
-                width=Cm(22),
-                height=Cm(5),
-                items=next_steps,
-                font_size=Pt(18),
-                color=BODY_TEXT,
-                name="txt_next_steps",
-            )
+            # Numbered next steps (circles instead of bullets)
+            for i, step in enumerate(next_steps):
+                step_num = i + 1
+                step_top = Cm(10) + i * Cm(2)
 
-        # --- Page number (PRIMARY_BLUE on white card background) ---
-        self._add_slide_number(slide, self.slide_count, color=PRIMARY_BLUE)
+                # Number circle
+                circle = self._add_shape(
+                    slide,
+                    MSO_SHAPE.OVAL,
+                    left=Cm(24),
+                    top=step_top,
+                    width=Cm(1.5),
+                    height=Cm(1.5),
+                    fill_color=PRIMARY_BLUE,
+                    name=f"num_step_{step_num}",
+                )
+                tf_c = circle.text_frame
+                tf_c.vertical_anchor = MSO_ANCHOR.MIDDLE
+                p_c = tf_c.paragraphs[0]
+                p_c.alignment = PP_ALIGN.CENTER
+                run_c = p_c.add_run()
+                run_c.text = str(step_num)
+                self._set_run_font(run_c, FONT_EXTRABOLD, Pt(16), False, WHITE)
+
+                # Step text
+                self._add_arabic_textbox(
+                    slide,
+                    left=Cm(6),
+                    top=step_top,
+                    width=Cm(17),
+                    height=Cm(1.5),
+                    text=step,
+                    font_name=FONT_REGULAR,
+                    font_size=Pt(18),
+                    bold=False,
+                    color=BODY_TEXT,
+                    alignment=PP_ALIGN.RIGHT,
+                    word_wrap=True,
+                    auto_size=MSO_AUTO_SIZE.NONE,
+                    name=f"txt_step_{step_num}",
+                )
 
     def add_slider_slide(
         self,
@@ -1794,6 +2120,9 @@ class LectureBuilder:
         """
         self.slide_count += 1
         slide = self._add_content_slide_with_layout()
+
+        # Set hidden TOC title for Storyline sidebar menu
+        self._set_slide_title_for_toc(slide, title)
 
         # --- Lecture title bar ---
         self._add_header_bar(slide, self.lecture_title)
@@ -1864,9 +2193,6 @@ class LectureBuilder:
                 name=f"txt_step_{slider_num}",
             )
 
-        # --- Page number ---
-        self._add_slide_number(slide, self.slide_count)
-
         if notes:
             self._add_notes(slide, notes)
 
@@ -1915,6 +2241,9 @@ class LectureBuilder:
         """
         self.slide_count += 1
         slide = self._add_content_slide_with_layout()
+
+        # Set hidden TOC title for Storyline sidebar menu
+        self._set_slide_title_for_toc(slide, title)
 
         # --- Lecture title bar ---
         self._add_header_bar(slide, self.lecture_title)
@@ -2032,6 +2361,8 @@ class LectureBuilder:
             for i, item in enumerate(reveal_items):
                 tab_left = int(tab_area_left + i * (tab_width + gap))
 
+                # First tab = active (darker), rest = inactive (lighter)
+                tab_fill = PRIMARY_BLUE if i == 0 else PRIMARY_BLUE_LIGHT
                 tab_shape = self._add_shape(
                     slide,
                     MSO_SHAPE.ROUNDED_RECTANGLE,
@@ -2039,8 +2370,9 @@ class LectureBuilder:
                     top=tab_top,
                     width=tab_width,
                     height=tab_height,
-                    fill_color=PRIMARY_BLUE,
+                    fill_color=tab_fill,
                     name=f"btn_reveal_{i + 1}",
+                    corner_radius=0.08,
                 )
                 tf = tab_shape.text_frame
                 tf.word_wrap = True
@@ -2066,6 +2398,18 @@ class LectureBuilder:
                 name="bg_reveal_desc",
             )
 
+            # Left accent bar on description area
+            self._add_shape(
+                slide,
+                MSO_SHAPE.RECTANGLE,
+                left=Cm(30.5),
+                top=Cm(10.5),
+                width=Cm(0.4),
+                height=Cm(5),
+                fill_color=PRIMARY_BLUE,
+                name="accent_desc_bar",
+            )
+
             # Add first item's description as default visible text
             if reveal_items:
                 self._add_arabic_textbox(
@@ -2084,9 +2428,6 @@ class LectureBuilder:
                     auto_size=MSO_AUTO_SIZE.NONE,
                     name="txt_reveal_desc",
                 )
-
-        # --- Page number ---
-        self._add_slide_number(slide, self.slide_count)
 
         # --- Structured notes for Storyline import ---
         btn_names = ", ".join(f"btn_reveal_{i+1}" for i in range(tab_count))
@@ -2157,6 +2498,9 @@ class LectureBuilder:
         """
         self.slide_count += 1
         slide = self._add_content_slide_with_layout()
+
+        # Set hidden TOC title for Storyline sidebar menu
+        self._set_slide_title_for_toc(slide, title)
 
         # --- Lecture title bar ---
         self._add_header_bar(slide, self.lecture_title)
@@ -2237,9 +2581,6 @@ class LectureBuilder:
             run = p.add_run()
             run.text = "▼"
             self._set_run_font(run, FONT_REGULAR, Pt(16), False, PRIMARY_BLUE)
-
-        # --- Page number ---
-        self._add_slide_number(slide, self.slide_count)
 
         # --- Notes with correct answers ---
         correct_text = "\n".join(
@@ -2552,9 +2893,11 @@ class LectureBuilder:
         p = tf.paragraphs[0]
         p.alignment = alignment
 
-        # Set line spacing if specified
+        # Set line spacing — default 1.3 for body text (>= 18pt) for Arabic readability
         if line_spacing:
             p.line_spacing = line_spacing
+        elif font_size >= Pt(18):
+            p.line_spacing = 1.3
 
         # Add the text run
         run = p.add_run()
@@ -2604,6 +2947,29 @@ class LectureBuilder:
         """
         pptx_set_paragraph_rtl(paragraph)
 
+    def _validate_bounds(self, left, top, width, height, context=""):
+        """
+        Warn if a shape would extend beyond slide boundaries.
+
+        Prints a console warning when shapes overflow — helps catch
+        layout bugs during development without crashing production.
+
+        Args:
+            left: Left position in EMU
+            top: Top position in EMU
+            width: Width in EMU
+            height: Height in EMU
+            context: Description of the shape (e.g., "bg_col1_card")
+        """
+        right_edge = left + width
+        bottom_edge = top + height
+        if right_edge > SLIDE_WIDTH:
+            overflow_cm = (right_edge - SLIDE_WIDTH) / 360000
+            print(f"⚠ OVERFLOW: {context} extends {overflow_cm:.1f}cm beyond right edge")
+        if bottom_edge > SLIDE_HEIGHT:
+            overflow_cm = (bottom_edge - SLIDE_HEIGHT) / 360000
+            print(f"⚠ OVERFLOW: {context} extends {overflow_cm:.1f}cm beyond bottom edge")
+
     def _add_shape(
         self,
         slide,
@@ -2616,6 +2982,7 @@ class LectureBuilder:
         border_color: RGBColor = None,
         border_width=None,
         name: str = None,
+        corner_radius: float = None,
     ):
         """
         Add a shape to a slide with optional fill and border.
@@ -2634,10 +3001,14 @@ class LectureBuilder:
             border_color: Optional border color
             border_width: Optional border width (Pt value)
             name: Optional shape name (for Storyline identification)
+            corner_radius: Optional corner radius for rounded rectangles (0.0 to 1.0)
 
         Returns:
             The created shape object.
         """
+        # Check for overflow before creating the shape
+        self._validate_bounds(left, top, width, height, name or "unnamed_shape")
+
         shape = slide.shapes.add_shape(shape_type, left, top, width, height)
         if name:
             shape.name = name
@@ -2654,47 +3025,366 @@ class LectureBuilder:
             # No border — set to no line
             shape.line.fill.background()
 
+        # Set custom corner radius for rounded rectangles
+        if corner_radius is not None and shape_type == MSO_SHAPE.ROUNDED_RECTANGLE:
+            # adjustments[0] controls corner radius (0.0 to 1.0)
+            shape.adjustments[0] = corner_radius
+
         return shape
 
-    def _add_slide_number(self, slide, number: int, color: RGBColor = None):
+    def _add_shadow_to_shape(self, shape, blur_pt=6, dist_pt=3, direction=2700000, opacity_pct=25):
         """
-        Add a page number to the bottom-left of a slide.
+        Add a real OOXML outer shadow effect to a shape.
 
-        Position and styling match the template exactly:
-        - Bottom-left corner
-        - Tajawal ExtraBold, 20pt, PRIMARY_BLUE
-        - LTR direction (numbers are always LTR even in RTL documents)
+        Uses effectLst > outerShdw for professional drop shadows that
+        Storyline 360 respects (standard OOXML effects).
+
+        Args:
+            shape: The shape to add shadow to
+            blur_pt: Shadow blur radius in points (default: 6)
+            dist_pt: Shadow distance in points (default: 3)
+            direction: Shadow direction in 60000ths of degree (default: 2700000 = bottom-right)
+            opacity_pct: Shadow opacity 0-100 (default: 25)
+        """
+        from lxml import etree
+
+        nsmap = {
+            'a': 'http://schemas.openxmlformats.org/drawingml/2006/main',
+        }
+
+        # Build shadow XML
+        blur_emu = blur_pt * 12700  # Points to EMU
+        dist_emu = dist_pt * 12700
+        alpha_val = (100 - opacity_pct) * 1000  # Convert to OOXML alpha (0=opaque, 100000=transparent)
+
+        shadow_xml = (
+            f'<a:outerShdw xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"'
+            f' blurRad="{blur_emu}" dist="{dist_emu}" dir="{direction}" rotWithShape="0">'
+            f'<a:srgbClr val="000000"><a:alpha val="{alpha_val}"/></a:srgbClr>'
+            f'</a:outerShdw>'
+        )
+        shadow_elem = etree.fromstring(shadow_xml)
+
+        # Find or create effectLst on the shape's spPr
+        spPr = shape._element.spPr
+        effectLst = spPr.find('{http://schemas.openxmlformats.org/drawingml/2006/main}effectLst')
+        if effectLst is None:
+            effectLst = etree.SubElement(spPr, '{http://schemas.openxmlformats.org/drawingml/2006/main}effectLst')
+
+        effectLst.append(shadow_elem)
+
+    def _add_decorative_corner(self, slide, position="top_right",
+                               color=None, size=None):
+        """
+        Draw a decorative corner accent using shapes instead of low-res PNGs.
+
+        Creates 2 thin lines (horizontal + vertical) meeting at the corner,
+        plus a small arc for elegance. Scales perfectly at any resolution.
 
         Args:
             slide: The slide object
-            number: The page number to display
-            color: Optional color override (default: PRIMARY_BLUE)
+            position: "top_right" or "bottom_left"
+            color: Line color (default: WHITE)
+            size: Overall size of the corner decoration (default: Cm(4))
         """
-        num_color = color if color else PRIMARY_BLUE
+        line_color = color if color else WHITE
+        corner_size = size if size else Cm(4)
+        line_thickness = Pt(2)
 
-        txBox = slide.shapes.add_textbox(
-            PAGE_NUM_LEFT,
-            PAGE_NUM_TOP,
-            PAGE_NUM_WIDTH,
-            PAGE_NUM_HEIGHT,
+        if position == "top_right":
+            # Horizontal line extending left from top-right corner area
+            self._add_shape(
+                slide, MSO_SHAPE.RECTANGLE,
+                left=SLIDE_WIDTH - Cm(3) - corner_size,
+                top=Cm(2.5),
+                width=corner_size,
+                height=line_thickness,
+                fill_color=line_color,
+                name="deco_corner_tr_h",
+            )
+            # Vertical line extending down from top-right corner area
+            self._add_shape(
+                slide, MSO_SHAPE.RECTANGLE,
+                left=SLIDE_WIDTH - Cm(3),
+                top=Cm(2.5),
+                width=line_thickness,
+                height=corner_size,
+                fill_color=line_color,
+                name="deco_corner_tr_v",
+            )
+            # Small circle at the corner junction for elegance
+            dot_size = Cm(0.4)
+            self._add_shape(
+                slide, MSO_SHAPE.OVAL,
+                left=SLIDE_WIDTH - Cm(3) - dot_size // 2,
+                top=Cm(2.5) - dot_size // 2,
+                width=dot_size,
+                height=dot_size,
+                fill_color=line_color,
+                name="deco_corner_tr_dot",
+            )
+        elif position == "bottom_left":
+            # Horizontal line extending right from bottom-left corner area
+            self._add_shape(
+                slide, MSO_SHAPE.RECTANGLE,
+                left=Cm(3),
+                top=SLIDE_HEIGHT - Cm(2.5),
+                width=corner_size,
+                height=line_thickness,
+                fill_color=line_color,
+                name="deco_corner_bl_h",
+            )
+            # Vertical line extending up from bottom-left corner area
+            self._add_shape(
+                slide, MSO_SHAPE.RECTANGLE,
+                left=Cm(3),
+                top=SLIDE_HEIGHT - Cm(2.5) - corner_size,
+                width=line_thickness,
+                height=corner_size,
+                fill_color=line_color,
+                name="deco_corner_bl_v",
+            )
+            # Small circle at the corner junction
+            dot_size = Cm(0.4)
+            self._add_shape(
+                slide, MSO_SHAPE.OVAL,
+                left=Cm(3) - dot_size // 2,
+                top=SLIDE_HEIGHT - Cm(2.5) - dot_size // 2,
+                width=dot_size,
+                height=dot_size,
+                fill_color=line_color,
+                name="deco_corner_bl_dot",
+            )
+
+    # ------------------------------------------------------------------
+    # IMAGE GENERATION HELPER — Auto-generate images from prompts
+    # ------------------------------------------------------------------
+
+    def _generate_image_for_slide(self, image_prompt, image_type, topic_key=None):
+        """
+        Generate an image using the project's visual direction.
+
+        Called by slide methods when an image_prompt is provided but no
+        image_path. Uses the project's config.json visual direction
+        (prefix, suffix, negative rules) to build the final prompt.
+
+        Args:
+            image_prompt: Description of the image to generate
+            image_type: One of "content", "card", "section", "two_column",
+                       "closing", "quiz" — used for aspect ratio lookup
+            topic_key: Optional cache key (e.g. "design_thinking").
+                      If an image already exists for this key, returns
+                      the cached path instead of regenerating.
+
+        Returns:
+            Absolute path to the generated image file, or None if
+            generation failed or no project_code is set.
+        """
+        if not image_prompt or not self.project_code:
+            return None
+        try:
+            result = generate_storyboard_image(
+                prompt=image_prompt,
+                project_code=self.project_code,
+                unit_number=self.unit_number or 1,
+                image_type=image_type,
+                topic_key=topic_key,
+            )
+            if result["success"]:
+                return result["path"]
+        except Exception:
+            # Graceful fallback — image generation is optional
+            pass
+        return None
+
+    # ------------------------------------------------------------------
+    # IMAGE HELPERS — Smart image placement with aspect ratio preservation
+    # ------------------------------------------------------------------
+
+    def _get_image_dimensions(self, image_path, max_width, max_height):
+        """
+        Calculate display dimensions that fit inside a bounding box
+        while preserving the image's natural aspect ratio.
+
+        Uses min(scale_w, scale_h) — so the image NEVER stretches or
+        overflows the bounding box. A portrait image stays tall,
+        a landscape image stays wide.
+
+        Args:
+            image_path: Path to the image file (PNG, JPG, etc.)
+            max_width: Maximum allowed width in EMU
+            max_height: Maximum allowed height in EMU
+
+        Returns:
+            Tuple of (display_width, display_height) in EMU,
+            or None if the file can't be read.
+        """
+        try:
+            with PILImage.open(image_path) as img:
+                img_w, img_h = img.size  # pixels
+
+            # Calculate scale factors for width and height
+            scale_w = max_width / img_w
+            scale_h = max_height / img_h
+
+            # Use the SMALLER scale — this ensures the image fits
+            # entirely within the box without overflowing either dimension
+            scale = min(scale_w, scale_h)
+
+            display_w = int(img_w * scale)
+            display_h = int(img_h * scale)
+            return (display_w, display_h)
+        except Exception:
+            return None
+
+    def _add_image(self, slide, image_path, left, top, max_width, max_height,
+                   name=None, center_in_area=True):
+        """
+        Smart image inserter with aspect ratio preservation and centering.
+
+        This is the main method agents use to add images to slides.
+        It handles:
+        - Aspect ratio preservation (never stretches)
+        - Centering within bounding box (so images look balanced)
+        - Missing file guard (returns None instead of crashing)
+        - Shape naming for Storyline selection pane
+
+        Args:
+            slide: The slide object to add the image to
+            image_path: Path to the image file (PNG, JPG, etc.)
+            left: Left edge of bounding box (EMU)
+            top: Top edge of bounding box (EMU)
+            max_width: Maximum width of bounding box (EMU)
+            max_height: Maximum height of bounding box (EMU)
+            name: Shape name for Storyline (e.g., "img_content")
+            center_in_area: If True, center the image within the box
+
+        Returns:
+            The picture shape object, or None if image file is missing.
+        """
+        # Guard: don't crash if the file doesn't exist
+        if not image_path or not os.path.exists(image_path):
+            return None
+
+        # Calculate display size that fits within the bounding box
+        dims = self._get_image_dimensions(image_path, max_width, max_height)
+        if dims is None:
+            return None
+
+        display_w, display_h = dims
+
+        # Center the image within the bounding box
+        if center_in_area:
+            # Offset to center horizontally and vertically
+            offset_left = (max_width - display_w) // 2
+            offset_top = (max_height - display_h) // 2
+            img_left = left + offset_left
+            img_top = top + offset_top
+        else:
+            img_left = left
+            img_top = top
+
+        # Check for overflow before adding
+        self._validate_bounds(img_left, img_top, display_w, display_h,
+                              name or "unnamed_image")
+
+        # Add the picture to the slide
+        pic = slide.shapes.add_picture(
+            image_path,
+            left=img_left,
+            top=img_top,
+            width=display_w,
+            height=display_h,
         )
-        txBox.name = "num_page"
-        tf = txBox.text_frame
-        tf.word_wrap = True
-        tf.auto_size = MSO_AUTO_SIZE.SHAPE_TO_FIT_TEXT
-        tf.margin_left = TEXT_MARGIN_LR
-        tf.margin_right = TEXT_MARGIN_LR
-        tf.margin_top = TEXT_MARGIN_TB
-        tf.margin_bottom = TEXT_MARGIN_TB
 
-        p = tf.paragraphs[0]
-        p.alignment = PP_ALIGN.CENTER
-        run = p.add_run()
-        run.text = str(number)
-        self._set_run_font(run, FONT_EXTRABOLD, Pt(20), False, num_color)
+        # Name the shape for Storyline's Selection Pane
+        if name:
+            pic.name = name
 
-        # Numbers use LTR (not RTL) — even in Arabic documents
-        pptx_set_paragraph_ltr(p)
+        return pic
+
+    def _add_accent_stripe(self, slide, color=None):
+        """
+        Add a vertical accent stripe on the right side of the slide.
+
+        Used in content slide Variant B for visual variety.
+        The stripe provides a colorful accent that breaks the monotony
+        of full-width content cards.
+
+        Args:
+            slide: The slide object
+            color: Stripe color (default: PRIMARY_BLUE_LIGHT)
+        """
+        stripe_color = color if color else PRIMARY_BLUE_LIGHT
+        self._add_shape(
+            slide,
+            MSO_SHAPE.RECTANGLE,
+            left=Cm(31),
+            top=Cm(4),
+            width=Cm(1.2),
+            height=Cm(13),
+            fill_color=stripe_color,
+            name="bg_accent_stripe",
+        )
+
+    def _add_numbered_points(self, slide, items, start_top=Cm(5.5), left=Cm(3), width=Cm(28)):
+        """
+        Add content as numbered points with circle badges instead of bullets.
+
+        Used in content slide Variant C for visual variety.
+        Each point gets a numbered circle badge (RTL: badge on right side).
+
+        Args:
+            slide: The slide object
+            items: List of point strings
+            start_top: Starting Y position
+            left: Starting X position
+            width: Width of content area
+        """
+        point_spacing = Cm(2.5)
+
+        for i, item_text in enumerate(items):
+            point_top = int(start_top + i * point_spacing)
+            point_num = i + 1
+
+            # Number badge (circle on the right for RTL)
+            badge_size = Cm(1.8)
+            badge = self._add_shape(
+                slide,
+                MSO_SHAPE.OVAL,
+                left=left + width - badge_size,
+                top=point_top,
+                width=badge_size,
+                height=badge_size,
+                fill_color=PRIMARY_BLUE,
+                name=f"num_point_{point_num}",
+            )
+            tf = badge.text_frame
+            tf.word_wrap = False
+            tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+            p = tf.paragraphs[0]
+            p.alignment = PP_ALIGN.CENTER
+            run = p.add_run()
+            run.text = str(point_num)
+            self._set_run_font(run, FONT_EXTRABOLD, Pt(18), False, WHITE)
+
+            # Point text (to the left of badge for RTL)
+            self._add_arabic_textbox(
+                slide,
+                left=left,
+                top=point_top,
+                width=width - badge_size - Cm(0.5),
+                height=badge_size,
+                text=item_text,
+                font_name=FONT_REGULAR,
+                font_size=Pt(20),
+                bold=False,
+                color=BODY_TEXT,
+                alignment=PP_ALIGN.RIGHT,
+                word_wrap=True,
+                auto_size=MSO_AUTO_SIZE.NONE,
+                name=f"txt_point_{point_num}",
+            )
 
     def _add_footer(self, slide):
         """
@@ -2724,6 +3414,78 @@ class LectureBuilder:
         notes_slide = slide.notes_slide
         notes_tf = notes_slide.notes_text_frame
         notes_tf.text = notes_text
+
+    def _set_slide_title_for_toc(self, slide, title_text: str):
+        """
+        Set a hidden title for Storyline TOC (Table of Contents).
+
+        Storyline 360 reads the slide title placeholder to populate its
+        sidebar menu. Without a title, slides appear as "Untitled Slide".
+
+        This adds an off-screen textbox named "title" that Storyline
+        reads but learners never see.
+
+        Args:
+            slide: The slide object
+            title_text: Arabic title text for the TOC entry
+        """
+        # Place far off-screen so it's invisible in the presentation
+        txBox = slide.shapes.add_textbox(
+            left=-Cm(20),
+            top=-Cm(20),
+            width=Cm(10),
+            height=Cm(2),
+        )
+        txBox.name = "title"
+        tf = txBox.text_frame
+        p = tf.paragraphs[0]
+        run = p.add_run()
+        run.text = title_text
+        self._set_run_font(run, FONT_REGULAR, Pt(12), False, WHITE)
+        self._set_rtl(p)
+
+    def _build_import_instructions(self, lecture_title: str):
+        """
+        Build Storyline 360 import instructions for the developer.
+
+        Returns a formatted string to be placed in the title slide's
+        speaker notes, giving the Storyline developer everything they
+        need to import and configure the presentation.
+        """
+        now = datetime.now().strftime("%Y-%m-%d")
+        return (
+            "=== STORYLINE 360 IMPORT INSTRUCTIONS ===\n\n"
+            f"Project: {self.project_code}\n"
+            f"Unit: {self.unit_number}\n"
+            f"Lecture: {lecture_title}\n"
+            f"Generated: {now}\n"
+            f"Designer: {self.designer}\n\n"
+            "--- REQUIRED FONTS ---\n"
+            "Install BEFORE importing:\n"
+            "  1. Tajawal ExtraBold\n"
+            "  2. Tajawal Medium\n"
+            "  3. Tajawal (Regular)\n"
+            "Download: https://fonts.google.com/specimen/Tajawal\n\n"
+            "--- IMPORT STEPS ---\n"
+            "1. File > Import > PowerPoint\n"
+            "2. Select THIS .pptx file\n"
+            "3. Import ALL slides\n"
+            "4. Story Size: 1280 x 720 pixels (must match)\n\n"
+            "--- POST-IMPORT QA ---\n"
+            "[ ] Verify TOC shows Arabic slide titles (not 'Untitled')\n"
+            "[ ] Verify fonts render correctly (Tajawal family)\n"
+            "[ ] Check RTL text direction on all slides\n"
+            "[ ] Test all interactive elements (buttons, quiz, drag-drop)\n"
+            "[ ] Verify speaker notes contain Storyline instructions per slide\n\n"
+            "--- SHAPE NAMING CONVENTION ---\n"
+            "txt_*  = Text elements\n"
+            "btn_*  = Clickable buttons (add triggers)\n"
+            "icon_* = Decorative icons\n"
+            "bg_*   = Background shapes\n"
+            "opt_*  = Quiz option shapes (add triggers)\n"
+            "num_*  = Numbered elements\n"
+            "title  = Hidden TOC title (do not move)\n"
+        )
 
     def _add_bullet_list(
         self,
@@ -2790,8 +3552,9 @@ class LectureBuilder:
             self._set_run_font(text_run, FONT_REGULAR, font_size, False, text_color)
             self._set_rtl(p)
 
-            # Better spacing between bullet items (Pt(16) for readability)
-            p.space_before = Pt(8)
-            p.space_after = Pt(16)
+            # Comfortable spacing for Arabic bullet items
+            p.space_before = Pt(10)
+            p.space_after = Pt(10)
+            p.line_spacing = 1.4
 
         return txBox

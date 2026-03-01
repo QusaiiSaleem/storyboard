@@ -60,7 +60,7 @@ Every lecture should follow this 9-step pedagogical arc. This maps directly to o
 | 9 | **تعزيز الاحتفاظ** (Enhance Retention) | Summary + next steps | Summary slide + closing slide | 1 min |
 
 ### How to Apply
-When composing a lecture (see also slide-composition.md), check that your slide sequence covers all 9 events:
+When composing a lecture (see also pptx-composition-arc.md), check that your slide sequence covers all 9 events:
 1. Does the lecture START with an attention-grabber? (Not just a dry title)
 2. Are objectives shown early?
 3. Is there a bridge to prior knowledge?
@@ -290,26 +290,6 @@ This prevents the common mistake of "covering topics" without clear learning out
 
 ---
 
-## 10. Quick Reference: Phase Checklist
+## 10. Phase Checklist
 
-### Phase 1 — Content Analysis
-- [ ] Identify 4-8 key topics from raw content
-- [ ] Assign Bloom's level to each topic
-- [ ] Create draft alignment map (objective → content → activity → assessment)
-- [ ] Check content type distribution (text, visual, interactive planned)
-- [ ] Identify "Why This Matters" hooks for each section
-
-### Phase 2 — Learning Objectives
-- [ ] Write objectives using Bloom's verb table (Arabic formula)
-- [ ] Verify each objective is measurable (not vague)
-- [ ] Confirm alignment map: every objective has content + activity + assessment
-- [ ] Check Bloom's distribution: not all at Remember level — include Apply/Analyze
-
-### Phase 3 — Storyboard Generation
-- [ ] Lecture follows Gagne's Nine Events arc
-- [ ] At least 2 different interaction types per lecture
-- [ ] No more than 3 consecutive content-only slides
-- [ ] Growth mindset feedback in all quiz/interaction notes
-- [ ] "Why This Matters" relevance prompt in each section opener
-- [ ] Quiz questions match Bloom's level of their objectives
-- [ ] All answers factually verified
+For the full per-phase workflow checklist, see the skill's SKILL.md workflow and `quality-checklist.md`.

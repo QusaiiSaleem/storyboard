@@ -37,8 +37,10 @@ Usage:
     )
 """
 
-import os
+import hashlib
 import json
+import os
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
@@ -75,7 +77,7 @@ def _get_client():
     key = (
         os.environ.get("GOOGLE_API_KEY")
         or os.environ.get("GEMINI_API_KEY")
-        or "AIzaSyDNpJzwtR62rXRqJs0RCyfF6ldpE3fZ0kY"
+        or ""
     )
     return genai.Client(api_key=key)
 
@@ -121,6 +123,8 @@ Animation requirements (CSS @keyframes inside <style> tag):
 - Title should fade in first (delay: 0s), then content elements sequentially
 - For motion paths use <animateMotion> along smooth bezier paths
 - repeatCount="indefinite" for looping animations — make the loop seamless
+- ALWAYS add transform-box: fill-box to animated elements
+- ALWAYS add transform-origin: center to animated elements
 """
         static_rule = ""
     else:
@@ -469,6 +473,54 @@ def _extract_svg(response_text):
 
 
 # ---------------------------------------------------------------------------
+# SVG Validation
+# ---------------------------------------------------------------------------
+
+def validate_svg(svg_text: str) -> bool:
+    """Validate SVG is well-formed XML with correct root and viewBox."""
+    if not svg_text:
+        return False
+    try:
+        root = ET.fromstring(svg_text)
+        # Check root tag is svg (handle namespace)
+        tag = root.tag.split('}')[-1] if '}' in root.tag else root.tag
+        if tag != 'svg':
+            return False
+        # Check viewBox exists
+        if 'viewBox' not in root.attrib and 'viewbox' not in root.attrib:
+            return False
+        return True
+    except ET.ParseError:
+        return False
+
+
+# ---------------------------------------------------------------------------
+# Prompt-hash file cache
+# ---------------------------------------------------------------------------
+
+def _get_cache_path(prompt: str) -> Path:
+    """Get cache file path for a prompt hash."""
+    cache_dir = Path("/tmp/svg_cache")
+    cache_dir.mkdir(exist_ok=True)
+    prompt_hash = hashlib.md5(prompt.encode()).hexdigest()
+    return cache_dir / f"{prompt_hash}.svg"
+
+
+def _check_cache(prompt: str) -> str | None:
+    """Check if a cached SVG exists for this prompt."""
+    cache_path = _get_cache_path(prompt)
+    if cache_path.exists():
+        return cache_path.read_text(encoding="utf-8")
+    return None
+
+
+def _save_cache(prompt: str, svg_content: str):
+    """Save SVG to prompt-hash cache."""
+    cache_path = _get_cache_path(prompt)
+    cache_path.write_text(svg_content, encoding="utf-8")
+
+
+# ---------------------------------------------------------------------------
 # SVG to PNG Conversion
 # ---------------------------------------------------------------------------
 
@@ -555,27 +607,58 @@ def generate_slide_svg(pattern_type, data, colors, title="", output_path=None, a
     # Ensure output directory exists
     os.makedirs(os.path.dirname(svg_path) or ".", exist_ok=True)
 
-    # Try Gemini models in preference order
-    client = _get_client()
-    svg_code = None
-    used_model = None
+    # Check cache first
+    cached = _check_cache(prompt)
+    if cached and validate_svg(cached):
+        svg_code = cached
+        print(f"[SVG Generator] Cache hit ({len(svg_code)} chars)", flush=True)
+    else:
+        # Try Gemini models in preference order with structured output
+        from google.genai import types
 
-    for model_name in MODELS_TO_TRY:
-        try:
-            print(f"[SVG Generator] Trying {model_name}...", flush=True)
-            response = client.models.generate_content(
-                model=model_name,
-                contents=prompt,
-            )
-            svg_code = _extract_svg(response.text)
-            if svg_code and "<svg" in svg_code:
-                used_model = model_name
-                print(f"[SVG Generator] {model_name} succeeded ({len(svg_code)} chars)", flush=True)
+        client = _get_client()
+        svg_code = None
+
+        for model_name in MODELS_TO_TRY:
+            for attempt in range(2):  # retry once if validation fails
+                try:
+                    print(f"[SVG Generator] Trying {model_name} (attempt {attempt + 1})...", flush=True)
+                    response = client.models.generate_content(
+                        model=model_name,
+                        contents=prompt,
+                        config=types.GenerateContentConfig(
+                            response_mime_type="application/json",
+                            response_schema={
+                                "type": "object",
+                                "properties": {"svg_code": {"type": "string"}},
+                                "required": ["svg_code"],
+                            },
+                        ),
+                    )
+                    # Parse JSON response
+                    try:
+                        result = json.loads(response.text)
+                        svg_code = result.get("svg_code", "")
+                    except (json.JSONDecodeError, AttributeError):
+                        # Fallback to raw text extraction
+                        svg_code = _extract_svg(response.text)
+
+                    if svg_code and validate_svg(svg_code):
+                        _save_cache(prompt, svg_code)
+                        print(f"[SVG Generator] {model_name} succeeded ({len(svg_code)} chars)", flush=True)
+                        break
+                    else:
+                        if attempt == 0:
+                            print(f"[SVG Generator] Invalid SVG from {model_name}, retrying...", flush=True)
+                        else:
+                            print(f"[SVG Generator] Invalid SVG from {model_name} after retry", flush=True)
+                        svg_code = None
+                except Exception as e:
+                    print(f"[SVG Generator] {model_name} failed: {e}")
+                    svg_code = None
+                    break  # No point retrying if API error
+            if svg_code:
                 break
-            svg_code = None
-        except Exception as e:
-            print(f"[SVG Generator] {model_name} failed: {e}")
-            continue
 
     if not svg_code:
         print(f"[SVG Generator] All models failed for pattern: {pattern_type}")

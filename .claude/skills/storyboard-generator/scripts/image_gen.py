@@ -44,7 +44,7 @@ def get_api_key():
 
     if not key:
         # Embedded fallback key for convenience
-        key = "AIzaSyDNpJzwtR62rXRqJs0RCyfF6ldpE3fZ0kY"
+        key = "AIzaSyABsLOBoGqK5uiWsOcIR8BuCCT_pioSUrc"
 
     return key
 
